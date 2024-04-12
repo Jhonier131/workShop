@@ -1,0 +1,43 @@
+<div class="contenedor_navbar">
+    <div class="navbar">
+
+        <!-- COM Carrito -->
+        <nav class="navbar_link">
+            <ul>
+                <li><a routerLink="">Home</a></li>
+                <li><a routerLink="/shop/womens">Womens</a></li>
+                <li><a>XShop</a></li>
+            </ul>
+        </nav>
+
+        <!-- COM Links -->
+        <div class="navbar_car" (click)="toggleCarrito()">
+            <p>1</p>
+            <img src="../../../../assets/img/carShop.svg" alt="">
+        </div>
+
+    </div>
+</div>
+<div class="container_car" *ngIf="mostrarCarrito">
+    <h1>Mi carrito</h1>
+    <div class="car_items">
+        <div class="container_item" *ngFor="let item of itemsCarrito; let i = index">
+            <img src="{{item.image}}" alt="">
+            <div class="item_count">
+                <div class="item_info">
+                    <p>{{item.name}}</p>
+                    <p>${{item.price}}</p>
+                </div>
+                <div class="item_cant">
+                    <p (click)="increaseQuantity(i)">+</p>
+                    <p>{{item.quantity}}</p>
+                    <p (click)="decreaseQuantity(i)">-</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <h1 class="total">Total <span>${{getTotal()}}</span></h1>
+    <button class="car_button">
+        Comprar
+    </button>
+</div>

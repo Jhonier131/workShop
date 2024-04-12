@@ -1,0 +1,22 @@
+<div class="container-womens">
+    <div class="womens_section">
+        <div *ngFor="let item of itemsPrueba">
+            <div class="container_card">
+                <figure>
+                    <p>-{{item.percent}}%</p>
+                    <img src="{{item.image}}" alt="Imagen del producto." />
+                </figure>
+                <div class="card_body">
+                    <h1>{{item.name}}</h1>
+                    <div class="price">
+                        <p>${{item.price}}</p>
+                        <h2>${{item.price}}</h2>
+                    </div>
+                    <button type="button" (click)="agregarCarrito(item)">
+                        Agregar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,89 @@
+.contenedor_menuSections {
+    /* background-color: antiquewhite; */
+    padding-top: 2rem;
+}
+
+.menuSections {
+    display: grid;
+    grid-template-areas: "womens colection"
+                        "xshop colection";
+    grid-gap: 2rem;
+}
+
+.card_1 {
+    background: url('../../../../../assets/img/yellow.jpg') no-repeat bottom;
+    background-size: cover;
+    grid-area: womens;
+    height: 300px;
+    color: black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* padding-left: 10rem; */
+}
+
+.card_1 a {
+    position: absolute;
+    font-size: 4rem;
+    font-weight: bolder;
+    transition: font-size 0.8s;
+    text-decoration: none;
+    color: white;
+}
+
+.card_1:hover a{
+    font-size: 8rem;
+    color: black;
+}
+
+.card_3 {
+    grid-area: xshop;
+    height: 300px;
+    margin-bottom: 2rem;
+    background: black;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center
+}
+
+.card_3 a {
+    position: absolute;
+    font-size: 4rem;
+    font-weight: bolder;
+    transition: font-size 0.8s;
+    text-decoration: none;
+    color: white;
+}
+
+.card_3:hover a{
+    font-size: 8rem;
+    color: rgb(87, 185, 255);
+}
+
+.card_2 {
+    height: 625px;
+    grid-area: colection;
+    background: url('../../../../../assets/img/woman-2564660_1280.jpg') no-repeat center;
+    background-size: cover;
+    /* background: red; */
+    color: black;
+    font-weight: bolder;
+    display: flex;
+    justify-content: center;
+    align-items: center
+}
+
+.card_2 a {
+    position: absolute;
+    font-size: 4rem;
+    font-weight: bolder;
+    transition: font-size 0.8s;
+    text-decoration: none;
+    color: rgb(255, 213, 0);
+}
+
+.card_2:hover a{
+    font-size: 6rem;
+    color: white;
+}

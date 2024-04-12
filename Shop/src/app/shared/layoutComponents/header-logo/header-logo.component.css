@@ -1,0 +1,9 @@
+.contenedor_logo {
+    width: auto;
+    /* background-color: aqua; */
+    text-align: center;
+}
+
+.contenedor_logo h1 {
+    font-size: 6rem;
+}
