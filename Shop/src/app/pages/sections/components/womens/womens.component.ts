@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+import { increment, decrement, reset } from '../../../../core/store/actions';
+import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'app-womens',
@@ -137,18 +140,23 @@ export class WomensComponent implements OnInit {
     },
   ]
 
-  carrito: any[] = [];
-  constructor() {}
+  carrito: any[] = [];  
+  count$: Observable<number>;
+
+  constructor(private store: Store<{ count: number }>) {
+    this.count$ = store.select('count');
+  }  
 
   ngOnInit(): void {
-    const carritoGuardado = localStorage.getItem('carrito');
-    if (carritoGuardado) {
-      this.carrito = JSON.parse(carritoGuardado);
-    }
+    // const carritoGuardado = localStorage.getItem('carrito');
+    // if (carritoGuardado) {
+    //   this.carrito = JSON.parse(carritoGuardado);
+    // }
   }
 
   agregarCarrito(item:any) {
     console.log(item);
+    this.store.dispatch(increment());
 
     // const index = this.carrito.findIndex((el) => el.id === item.id);
     // if (index !== -1) {
