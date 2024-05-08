@@ -7,17 +7,20 @@ import { SharedModule } from './shared/shared.module';
 
 import { ActionReducer, ActionReducerMap, MetaReducer, StoreModule } from '@ngrx/store';
 import { counterReducer } from './core/store/reducer';
+import { carReducer } from './core/store/car/car-reducer'
 import { localStorageSync } from 'ngrx-store-localstorage';
 
 const reducers: ActionReducerMap<any> = {
   contadorCarrito: counterReducer,
+  carrito: carReducer 
 };
 
 export function localStorageSyncReducer(reducer: ActionReducer<any>): ActionReducer<any> {
   return localStorageSync(
     {
       keys: [
-        'contadorCarrito'
+        'contadorCarrito',
+        'carrito'
       ],
       rehydrate: true
     }

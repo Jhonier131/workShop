@@ -12,7 +12,7 @@
 
         <!-- COM Links -->
         <div class="navbar_car" (click)="toggleCarrito()">
-            <p>{{count$ | async}}</p>
+            <p>{{carItems}}</p>
             <img src="../../../../assets/img/carShop.svg" alt="">
         </div>
 
@@ -21,7 +21,7 @@
 <div class="container_car" *ngIf="mostrarCarrito">
     <h1>Mi carrito</h1>
     <div class="car_items">
-        <div class="container_item" *ngFor="let item of itemsCarrito; let i = index">
+        <div class="container_item" *ngFor="let item of allCarItems; let i = index">
             <img src="{{item.image}}" alt="">
             <div class="item_count">
                 <div class="item_info">

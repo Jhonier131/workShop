@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
+import { CarService } from 'src/app/core/store/car/car.service';
 
 @Component({
   selector: 'app-navbar',
@@ -49,10 +49,14 @@ export class NavbarComponent implements OnInit {
   ];
 
   mostrarCarrito: boolean = false;
-  count$: Observable<number>;
+  public carItems: number = 0;
+  public allCarItems: any;
 
-  constructor(private store: Store<{ count: number }>) {
-    this.count$ = store.select('');
+  constructor(private carStoreService: CarService) {
+    this.carStoreService.selectCarItems$().subscribe((resp: any) => {
+      this.carItems = resp.carItems.length
+      this.allCarItems = resp.carItems
+    });
   }
 
   ngOnInit(): void {
@@ -63,18 +67,20 @@ export class NavbarComponent implements OnInit {
   }
 
   increaseQuantity(index: number) {
-    this.itemsCarrito[index].quantity++;
+    console.log(index);
+    console.log(this.allCarItems);
+    this.allCarItems[index].quantity++;
   }
 
   decreaseQuantity(index: number) {
-      if (this.itemsCarrito[index].quantity > 1) {
-          this.itemsCarrito[index].quantity--;
+      if (this.allCarItems[index].quantity > 1) {
+          this.allCarItems[index].quantity--;
       }
   }
 
   getTotal(): number {
       let total = 0;
-      for (let item of this.itemsCarrito) {
+      for (let item of this.allCarItems) {
           total += item.price * item.quantity;
       }
       return total;
