@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ShopService } from '../../services/shop.service';
 
 @Component({
   selector: 'app-sections',
@@ -7,9 +8,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SectionsComponent implements OnInit {
 
-  constructor() { }
+  public allClothes = [];
+
+  constructor(private shopServices: ShopService) {}
 
   ngOnInit(): void {
+    console.log('askdjakdjd');
+    this.shopServices.getClothes().subscribe( respuesta => {
+      console.log(respuesta);
+      this.allClothes = respuesta
+    })
   }
 
 }

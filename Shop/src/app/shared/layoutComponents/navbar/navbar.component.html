@@ -9,10 +9,9 @@
                 <li><a>XShop</a></li>
             </ul>
         </nav>
-
         <!-- COM Links -->
         <div class="navbar_car" (click)="toggleCarrito()">
-            <p>{{carItems}}</p>
+            <p *ngIf="this.carItems">{{carItems}}</p>
             <img src="../../../../assets/img/carShop.svg" alt="">
         </div>
 
@@ -21,17 +20,19 @@
 <div class="container_car" *ngIf="mostrarCarrito">
     <h1>Mi carrito</h1>
     <div class="car_items">
-        <div class="container_item" *ngFor="let item of allCarItems; let i = index">
-            <img src="{{item.image}}" alt="">
-            <div class="item_count">
-                <div class="item_info">
-                    <p>{{item.name}}</p>
-                    <p>${{item.price}}</p>
-                </div>
-                <div class="item_cant">
-                    <p (click)="increaseQuantity(i)">+</p>
-                    <p>{{item.quantity}}</p>
-                    <p (click)="decreaseQuantity(i)">-</p>
+        <div class="" *ngFor="let item of allCarItems; let i = index">
+            <div class="container_item" *ngIf="i >= 1">
+                <img src="{{item.image}}" alt="">
+                <div class="item_count">
+                    <div class="item_info">
+                        <p>{{item.name}}</p>
+                        <p>${{item.price}}</p>
+                    </div>
+                    <div class="item_cant">
+                        <p (click)="decreaseQuantity(i)">-</p>
+                        <p>{{item.quantity}}</p>
+                        <p (click)="increaseQuantity(i)">+</p>
+                    </div>
                 </div>
             </div>
         </div>

@@ -54,8 +54,8 @@ export class NavbarComponent implements OnInit {
 
   constructor(private carStoreService: CarService) {
     this.carStoreService.selectCarItems$().subscribe((resp: any) => {
-      this.carItems = resp.carItems.length
-      this.allCarItems = resp.carItems
+      this.carItems = resp.carItems.length - 1;
+      this.allCarItems = resp.carItems;
     });
   }
 

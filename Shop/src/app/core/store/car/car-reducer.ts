@@ -8,11 +8,14 @@ export const initialState = {
 const methodReducer = createReducer(
     initialState,
     on(carAction.addItem, (state, { newItem }) => {
-        // console.log(newItem);
+
+        const addNewItem = state.carItems.filter((item: any) => {
+            if(item.id !== newItem.id) return item;
+        });
         
       return {
         ...state,
-        carItems: [...state.carItems, newItem]
+        carItems: [...addNewItem, newItem]
       };
     })
 )
