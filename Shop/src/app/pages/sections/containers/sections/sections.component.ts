@@ -19,5 +19,4 @@ export class SectionsComponent implements OnInit {
       this.allClothes = respuesta
     })
   }
-
 }

@@ -8,15 +8,26 @@ export const initialState = {
 const methodReducer = createReducer(
     initialState,
     on(carAction.addItem, (state, { newItem }) => {
+        console.log('state', state);
+        const allItems = state.carItems.filter((item: any) => Object.keys(item).length && !!item);
 
-        const addNewItem = state.carItems.filter((item: any) => {
-            if(item.id !== newItem.id) return item;
+        let deleteRepeatItems; 
+        const addQuantity = allItems.map((item: any) => {
+            if(item.id === newItem.id) {
+                deleteRepeatItems = allItems.filter((item: any) => item.id !== newItem.id); 
+                return {
+                    ...item,
+                    quantity: item.quantity + 1
+                }
+            }
         });
-        
-      return {
-        ...state,
-        carItems: [...addNewItem, newItem]
-      };
+
+        console.log('>>>>>>>>', addQuantity, deleteRepeatItems);
+
+        return {
+            ...state,
+            carItems: [...addQuantity, deleteRepeatItems]
+        }
     })
 )
 
