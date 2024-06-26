@@ -18,6 +18,18 @@ export class CarService {
         newItem: {...newItem, quantity: 1}
       }));
   }
+  public incrementItem(item: any) {
+    this.store.dispatch(
+      carActions.increment({
+        item: {...item}
+      }));
+  }
+  public decrementItem(item: any) {
+    this.store.dispatch(
+      carActions.decrement({
+        item: {...item}
+      }));
+  }
 
   public selectCarItems$(): Observable<[]> {
     return this.store.select(carSelector.selectCarItems);

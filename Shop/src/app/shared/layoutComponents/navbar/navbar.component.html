@@ -10,35 +10,38 @@
             </ul>
         </nav>
         <!-- COM Links -->
-        <div class="navbar_car" (click)="toggleCarrito()">
-            <p *ngIf="this.carItems">{{carItems}}</p>
-            <img src="../../../../assets/img/carShop.svg" alt="">
+        <div class="container_car_list">
+            <div class="navbar_car" (click)="toggleCarrito()">
+                <p *ngIf="this.carItems">{{carItems}}</p>
+                <img src="../../../../assets/img/carShop.svg" alt="Carrito" id="img_car">
+            </div>
+
+            <div class="container_car" *ngIf="mostrarCarrito" id="container_car">
+                <h1>Mi carrito</h1>
+                <div class="car_items">
+                    <div class="" *ngFor="let item of allCarItems; let i = index">
+                        <div class="container_item" *ngIf="i >= 1">
+                            <img src="{{item.image}}" alt="Imagen producto">
+                            <div class="item_count">
+                                <div class="item_info">
+                                    <p>{{item.name}}</p>
+                                    <p>${{item.price}}</p>
+                                </div>
+                                <div class="item_cant">
+                                    <p (click)="decreaseQuantity(item)" class="editItem">-</p>
+                                    <p>{{item.quantity}}</p>
+                                    <p (click)="increaseQuantity(item)" class="editItem">+</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <h1 class="total">Total <span>${{getTotal()}}</span></h1>
+                <button class="car_button">
+                    Comprar
+                </button>
+            </div>
         </div>
 
     </div>
-</div>
-<div class="container_car" *ngIf="mostrarCarrito">
-    <h1>Mi carrito</h1>
-    <div class="car_items">
-        <div class="" *ngFor="let item of allCarItems; let i = index">
-            <div class="container_item" *ngIf="i >= 1">
-                <img src="{{item.image}}" alt="">
-                <div class="item_count">
-                    <div class="item_info">
-                        <p>{{item.name}}</p>
-                        <p>${{item.price}}</p>
-                    </div>
-                    <div class="item_cant">
-                        <p (click)="decreaseQuantity(i)">-</p>
-                        <p>{{item.quantity}}</p>
-                        <p (click)="increaseQuantity(i)">+</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <h1 class="total">Total <span>${{getTotal()}}</span></h1>
-    <button class="car_button">
-        Comprar
-    </button>
 </div>

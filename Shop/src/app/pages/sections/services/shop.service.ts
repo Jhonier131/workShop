@@ -14,8 +14,7 @@ export class ShopService {
 
   constructor(private http: HttpClient) { }
 
-  public getClothes(): Observable<any> {
-    console.log('holaaamsnd,jsan');
-    return this.http.get<any>(environment.api + 'shop/clothes', this.headers);
+  public getClothesWomens(): Observable<any> {
+    return this.http.get<any>(environment.api + 'r1/allProducts');
   }
 }

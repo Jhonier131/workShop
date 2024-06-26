@@ -9,6 +9,7 @@ import { ActionReducer, ActionReducerMap, MetaReducer, StoreModule } from '@ngrx
 import { counterReducer } from './core/store/reducer';
 import { carReducer } from './core/store/car/car-reducer'
 import { localStorageSync } from 'ngrx-store-localstorage';
+import { HttpClientModule } from '@angular/common/http';
 
 const reducers: ActionReducerMap<any> = {
   contadorCarrito: counterReducer,
@@ -35,6 +36,7 @@ const metaReducers: Array<MetaReducer<any, any>> = [localStorageSyncReducer];
   imports: [
     BrowserModule,
     AppRoutingModule,
+    HttpClientModule,
     SharedModule,
     StoreModule.forRoot(reducers, {metaReducers})
   ],

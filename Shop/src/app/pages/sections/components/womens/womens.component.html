@@ -1,9 +1,9 @@
 <div class="container-womens">
     <div class="womens_section">
-        <div *ngFor="let item of itemsPrueba">
+        <div *ngFor="let item of allClothes">
             <div class="container_card">
                 <figure>
-                    <p>-{{item.percent}}%</p>
+                    <p>-{{item.offSale}}%</p>
                     <img src="{{item.image}}" alt="Imagen del producto." />
                 </figure>
                 <div class="card_body">

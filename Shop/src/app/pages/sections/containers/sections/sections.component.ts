@@ -10,13 +10,8 @@ export class SectionsComponent implements OnInit {
 
   public allClothes = [];
 
-  constructor(private shopServices: ShopService) {}
+  constructor() {}
 
   ngOnInit(): void {
-    console.log('askdjakdjd');
-    this.shopServices.getClothes().subscribe( respuesta => {
-      console.log(respuesta);
-      this.allClothes = respuesta
-    })
   }
 }
