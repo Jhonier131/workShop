@@ -1,89 +1,354 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 .container-womens {
-    /* background-color: rgb(179, 179, 179); */
-    width: 100%;
-    height: 100%;
-    padding: 2rem 0;
+  /* background-color: rgb(179, 179, 179); */
+  width: 70%;
+  height: 100%;
+  padding: 2rem 0;
+  margin: auto;
+  margin-top: 5rem;
 }
 
 .womens_section {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    row-gap: 1rem;
-    column-gap: 1rem;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  row-gap: 1rem;
+  column-gap: 1rem;
 }
 
 .container_card {
-    /* height: 40rem; */
-    width: 100%;
-    position: relative;
+  /* height: 40rem; */
+  width: 100%;
+  position: relative;
 }
 
-.container_card figure img {
-    width: 30rem;
-    height: auto;
+.list_size {
+  position: relative;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.62);
+  overflow: hidden;
+}
+
+.list_size img {
+  width: 100%;
+  height: auto;
+}
+
+.tallas-container {
+  position: absolute;
+  width: 100%;
+  padding: 5px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* gap: 1rem; */
+  list-style-type: none;
+  bottom: 0;
+  transition: opacity 0.5s;
+}
+
+.tallas-container button {
+  text-align: center;
+  color: white;
+  background-color: transparent;
+  border: none;
+  width: 1rem;
+  cursor: pointer;
+  opacity: 0;
+}
+
+.container_card:hover .tallas-container {
+  opacity: 1;
+  color: white;
+  background: rgb(0, 0, 0);
+  background: radial-gradient(
+    circle,
+    rgba(0, 0, 0, 1) 60%,
+    rgba(0, 181, 255, 0) 100%
+  );
+
+  && button {
+    width: 3rem;
+    text-align: center;
+    font-size: 1.4rem;
+    font-weight: 500;
+    cursor: pointer;
+    opacity: 1;
+  }
+}
+
+.tallas-container button.selected {
+  color: red;
+}
+
+.size:hover {
+  font-size: 1.8rem !important;
+  color: red;
 }
 
 .card_body {
-    display: flex;
-    flex-direction: column;
-    color: gray;
+  display: flex;
+  flex-direction: column;
+  color: black;
+  text-align: center;
 }
 
 .card_body h1 {
-    font-size: 2rem;
-    font-weight: 500;
-    text-transform: uppercase;
+  font-size: 2rem;
+  font-weight: 500;
+  text-transform: capitalize;
+  margin: 0;
 }
 
 .card_body p {
-    font-size: 1.5rem;
-    text-decoration: line-through;
+  font-size: 1.5rem;
+  text-decoration: line-through;
 }
 
 .card_body button {
-    height: 3.5rem;
-    font-size: 1.6rem;
-    border: 1.5px solid black;
-    background-color: white;
-    opacity: 0;
-    text-transform: uppercase;
-    font-weight: 500;
-    pointer-events: none;
-    transition: opacity 0.5s;
+  height: 3.5rem;
+  font-size: 1.6rem;
+  border: 1.5px solid black;
+  background-color: white;
+  opacity: 0;
+  text-transform: uppercase;
+  font-weight: 500;
+  pointer-events: none;
+  transition: opacity 0.5s;
 }
 
 .container_card:hover .card_body button {
-    opacity: 1;
-    pointer-events: all;
+  opacity: 1;
+  pointer-events: all;
 }
 
 .card_body button:hover {
-    background-color: black;
-    color: white;
+  background-color: black;
+  color: white;
 }
 
 .price {
-    display: flex;
-    && h2 {
-        padding-left: 1rem;
-        font-size: 1.5rem;
-        color: black;
-        font-weight: bold;
-    }
+  display: flex;
+  width: 100%;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  && h2 {
+    padding-left: 1rem;
+    font-size: 1.5rem;
+    color: black;
+    font-weight: bold;
+    margin: 0;
+  }
+
+  && p {
+    margin: 0;
+  }
 }
 
 .container_card figure p {
-    width: 5rem;
-    height: 2.3rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: absolute;
-    background-color: red;
-    color: white;
-    padding: 0 0.5rem;
-    margin: 1rem;
-    font-weight: bold;
-    font-size: 1.5rem;
-    letter-spacing: 1px;
+  width: 5rem;
+  height: 2.3rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  background-color: red;
+  color: white;
+  padding: 0 0.5rem;
+  margin: 1rem;
+  font-weight: bold;
+  font-size: 1.5rem;
+  letter-spacing: 1px;
+}
+
+.filter {
+  width: 300px;
+  display: flex;
+  align-items: center;
+  /* justify-content: ; */
+  padding: 2rem 0;
+}
+
+.container_filter h1 {
+  font-size: 1.6rem;
+  font-weight: bold;
+}
+
+.container_souldout {
+  display: none;
+}
+
+.container_card .container_souldout {
+  /* .container_card:hover .container_souldout { */
+  position: absolute;
+  width: 600px;
+  height: 6rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: black;
+  color: rgb(171, 2, 2);
+  font-size: 3rem;
+  letter-spacing: 0.5rem;
+  font-weight: bolder;
+  bottom: 10rem;
+  left: -10rem;
+  transform: rotate(-45deg);
+}
+
+.souldOut_image::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.womens_header {
+  /* background-color: blanchedalmond; */
+  /* height: 100vh; */
+  width: 100%;
+  padding-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.header_filter {
+  height: 200px;
+
+  && div {
+    height: 200px;
+    background-color: whitesmoke;
+  }
+}
+
+.header {
+  height: 600px !important;
+  grid-column: 1/-1;
+
+  /* Imagen grande */
+  background: url("../../../../../assets/img/headerWomens.jpg") no-repeat center
+    center;
+  background-size: cover;
+  /* background-color: whitesmoke; */
+}
+
+.header_filter {
+  display: flex;
+  gap: 1rem;
+}
+
+.header_filter div {
+  width: 100%;
+  height: 100%;
+  font-size: 5rem;
+  font-weight: normal;
+  font-family: "Bebas Neue", sans-serif;
+  display: flex;
+  justify-content: start;
+  padding-left: 2rem;
+  align-items: center;
+  transition: font-size 0.5s;
+}
+
+.header_filter div:nth-child(1) {
+  background: url("../../../../../assets/img/headerFilter1.jpg") no-repeat
+    center center;
+  background-size: cover;
+}
+
+.header_filter div:nth-child(2) {
+  background: url("../../../../../assets/img/headerFilter2.jpg") no-repeat
+    center center;
+  background-size: cover;
+}
+
+.header_filter div:nth-child(3) {
+  background: url("../../../../../assets/img/headerFilter3.jpg") no-repeat;
+  background-size: cover;
+}
+
+.header_filter div:hover {
+  /* background-size: 110%; */
+  font-size: 6rem;
+  color: hotpink;
+}
+
+.header_promotional {
+  text-align: center;
+  margin: 4rem 0;
+}
+
+.header_promotional h1 {
+  font-size: 3rem;
+  font-weight: bold;
+  color: black;
+}
+
+.header_promotional p {
+  font-size: 1.6rem;
+  font-weight: normal;
+  width: 300px;
+  margin: auto;
+}
+
+.prom_btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 2rem;
+  gap: 2rem;
+}
+
+.prom_btn button {
+  height: 4rem;
+  width: 300px;
+  padding: 0rem 2rem;
+  background-color: hotpink;
+  text-align: center;
+  font-size: 1.6rem;
+  color: white;
+  font-weight: 500;
+  border: none;
+  border-radius: 2rem;
+  cursor: pointer;
+  transition: all 0.5s;
+}
+
+.prom_btn button:hover {
+  background-color: white;
+  color: black;
+  border: 1px solid hotpink;
+}
+
+.container_filter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.filter_menu h1 {
+  width: 8rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.filter_menu h1::before {
+  content: " ";
+  background: url("../../../../../assets/icons/filter.svg") no-repeat center
+    center;
+  background-size: cover;
+  width: 2.5rem;
+  height: 2.5rem;
+  margin-right: 1rem;
 }

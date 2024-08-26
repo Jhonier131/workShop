@@ -7,7 +7,6 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { WomensComponent } from './components/womens/womens.component';
 import { HttpClientModule } from '@angular/common/http';
 
-
 @NgModule({
   declarations: [
     SectionsComponent,
@@ -17,7 +16,7 @@ import { HttpClientModule } from '@angular/common/http';
     CommonModule,
     HttpClientModule,
     SectionsRoutingModule,
-    SharedModule
+    SharedModule,
   ]
 })
 export class SectionsModule { }

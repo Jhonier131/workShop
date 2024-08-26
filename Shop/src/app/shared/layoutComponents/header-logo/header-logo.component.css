@@ -1,9 +1,14 @@
 .contenedor_logo {
-    width: auto;
+    width: 70%;
     /* background-color: aqua; */
+    position: absolute;
+    margin-top: 6.5rem;
     text-align: center;
+    color: white;
 }
 
 .contenedor_logo h1 {
     font-size: 6rem;
+    font-weight: 900;
+    text-transform: uppercase;
 }

@@ -15,7 +15,7 @@ const methodReducer = createReducer(
         });
 
         if(exist.length) {
-          alert('Este producto ya se encuentra en el carrito')
+          // alert('Este producto ya se encuentra en el carrito')
           return {...state};
         }
         else return {
@@ -50,6 +50,18 @@ const methodReducer = createReducer(
             carItems: [...newItems]
         };
     }),
+    on(carAction.deleteItem, (state, { item }) => {
+        let myCartItems = [...state.carItems];
+
+        const newItems = myCartItems.filter((cartItem: any) => {
+          if(cartItem.id !== item.id) return cartItem;
+        });
+
+        return {
+            ...state,
+            carItems: [...newItems]
+        };
+    })
 )
 
 export function carReducer(state: any | undefined, action: Action) {

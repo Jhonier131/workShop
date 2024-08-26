@@ -1,6 +1,6 @@
 .contenedor_menuSections {
     /* background-color: antiquewhite; */
-    padding-top: 2rem;
+    /* padding-top: 2rem; */
 }
 
 .menuSections {
@@ -39,7 +39,7 @@
 .card_3 {
     grid-area: xshop;
     height: 300px;
-    margin-bottom: 2rem;
+    /* margin-bottom: 2rem; */
     background: black;
     color: white;
     display: flex;

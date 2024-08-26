@@ -10,6 +10,11 @@ export class HeaderPromocionalComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    this.irAlInicio();
+  }
+
+  irAlInicio() {
+    window.scrollTo(0, 0);
   }
 
 }

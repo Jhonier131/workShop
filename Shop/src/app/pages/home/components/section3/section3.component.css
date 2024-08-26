@@ -1,0 +1,96 @@
+.container_prom {
+    /* height: calc(100vh - 300px); */
+    width: 100vw;
+    /* background-color: blanchedalmond; */
+    position: relative;
+}
+
+.promotional {
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: calc(100% - 300px);
+}
+
+.promotional h1 {
+    font-size: 5rem;
+    width: 450px;
+    line-height: 1;
+    font-weight: 500;
+}
+
+.promotional p {
+    font-size: 2rem;
+    font-weight: 500;
+    width: 600px;
+    line-height: 1;
+}
+
+.offSale_background {
+    background: url('../../../../../assets/img/tela-negra.jpg') no-repeat center center;
+    background-size: cover;
+    width: 100%;
+    height: 50vh;
+    filter: brightness(0.35);
+    position: relative;
+    top: 0;
+}
+
+.offsale {
+    width: 100%;
+    height: 50vh;
+    color: white;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    padding-top: 12rem;
+    flex-direction: column;
+    margin: auto;
+    position: absolute;
+    z-index: 1;
+}
+
+.offsale h1 {
+    font-size: 5rem;
+    font-weight: 300;
+    width: 300px;
+    line-height: 1.2;
+    margin: auto;
+}
+
+.percentage {
+    font-size: 5rem;
+    font-weight: 700;
+    margin: auto;
+}
+
+.categories {
+    display: flex;
+    column-gap: 2rem;
+    margin: auto;
+}
+
+.categories button {
+    height: 4rem;
+    width: 300px;
+    padding: 0rem 2rem;
+    background-color: white;
+    text-align: center;
+    font-size: 2rem;
+    color: black;
+    font-weight: 500;
+    border: none;
+    border-radius: 2rem;
+    cursor: pointer;
+    transition: all 0.5s;
+}
+
+.categories button:hover {
+    background-color: black;
+    color: white;
+    /* border: 2px solid white; */
+}

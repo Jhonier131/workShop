@@ -1,47 +1,62 @@
-<div class="contenedor_navbar">
+<div class="contenedor_navbar" [ngClass]="{'navbar-transparent': navbarTransparent}">
     <div class="navbar">
 
         <!-- COM Carrito -->
         <nav class="navbar_link">
             <ul>
-                <li><a routerLink="">Home</a></li>
-                <li><a routerLink="/shop/womens">Womens</a></li>
-                <li><a>XShop</a></li>
+                <li><a routerLink="/shop/womens">Mujeres</a></li>
+                <li><a>Sexshop</a></li>
             </ul>
         </nav>
-        <!-- COM Links -->
-        <div class="container_car_list">
-            <div class="navbar_car" (click)="toggleCarrito()">
-                <p *ngIf="this.carItems">{{carItems}}</p>
-                <img src="../../../../assets/img/carShop.svg" alt="Carrito" id="img_car">
-            </div>
 
-            <div class="container_car" *ngIf="mostrarCarrito" id="container_car">
-                <h1>Mi carrito</h1>
-                <div class="car_items">
-                    <div class="" *ngFor="let item of allCarItems; let i = index">
-                        <div class="container_item" *ngIf="i >= 1">
-                            <img src="{{item.image}}" alt="Imagen producto">
-                            <div class="item_count">
-                                <div class="item_info">
-                                    <p>{{item.name}}</p>
-                                    <p>${{item.price}}</p>
-                                </div>
-                                <div class="item_cant">
-                                    <p (click)="decreaseQuantity(item)" class="editItem">-</p>
-                                    <p>{{item.quantity}}</p>
-                                    <p (click)="increaseQuantity(item)" class="editItem">+</p>
-                                </div>
+        <div class="contenedor_logo">
+            <a routerLink="/home" class="logo" [ngClass]="{'hidde-logo': navbarTransparent}">CHIC</a>
+        </div>
+        <!-- COM Links -->
+        <div class="navbar_car" (click)="toggleCarrito()">
+                <p *ngIf="this.carItems">{{carItems}}</p>
+                <img src="../../../../assets/icons/handbag.svg" alt="Carrito" id="img_car">
+        </div>
+
+    </div>
+</div>
+
+<div class="car" *ngIf="mostrarCarrito">
+    <div class="container_car" id="container_car" *ngIf="mostrarCarrito">
+        <div class="car_title">
+            <h1>Bolsa de compras</h1>
+            <a (click)="closeCar()"><img src="../../../../assets/icons/x.png" alt="close"></a>
+        </div>
+        <div class="divisor_car"></div>
+        <div class="car_items">
+            <div *ngFor="let item of allCarItems; let i = index">
+                <div class="container_item" *ngIf="i >= 1">
+                    <img src="{{item.image}}" alt="Imagen producto">
+                    <div class="item_count">
+                        <div class="item_info">
+                            <div class="item_delete">
+                                <p>{{item.name}}</p>
+                                <img class="btn_delete" src="../../../../assets/icons/bote-de-basura.png" alt="Eliminar" (click)="deleteItem(item)">
                             </div>
+                            <p>Talla: {{item.talla}}</p>
+                        </div>
+                        <div class="item_cant">
+                            <p>Cantidad:</p>
+                            <p (click)="decreaseQuantity(item)" class="item_decrease">-</p>
+                            <p>{{item.quantity}}</p>
+                            <p (click)="increaseQuantity(item)" class="item_increase">+</p>
+                            <p>${{item.price}}</p>
                         </div>
                     </div>
                 </div>
-                <h1 class="total">Total <span>${{getTotal()}}</span></h1>
-                <button class="car_button">
-                    Comprar
-                </button>
             </div>
         </div>
-
+        <div class="container_total">
+            <div class="total_zone">
+                <h1 class="total">Total</h1>
+                <p>{{getTotal()}}</p>
+            </div>
+            <button class="car_button" (click)="saleProducts()">Comprar</button>
+        </div>
     </div>
 </div>

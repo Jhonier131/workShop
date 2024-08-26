@@ -24,9 +24,17 @@ export class CarService {
         item: {...item}
       }));
   }
+
   public decrementItem(item: any) {
     this.store.dispatch(
       carActions.decrement({
+        item: {...item}
+      }));
+  }
+
+  public deleteItemcar(item: any) {
+    this.store.dispatch(
+      carActions.deleteItem({
         item: {...item}
       }));
   }

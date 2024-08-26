@@ -1,18 +1,64 @@
 <div class="container-womens">
+
+    <div class="womens_header">
+        <div class="header"></div>
+        <div class="header_filter">
+            <div>Camisetas</div>
+            <div>Jeans</div>
+            <div>Vestidos</div>
+        </div>
+    </div>
+
+    <div class="header_promotional">
+        <h1>Descubre tu estilo</h1>
+        <p>Explora nuestra colección exclusiva y encuentra las piezas perfectas para completar tu look.</p>
+        <div class="prom_btn">
+            <button>Pantalones y jeans</button>
+            <button>Camisetas y tops</button>
+        </div>
+    </div>
+
+
+    <div class="container_filter">
+        <div class="filter_menu">
+            <h1>Filtrar</h1>
+        </div>
+        <div class="filter">
+            <h1>Ordenar por: </h1>
+            <!-- <mat-form-field appearance="fill">
+                <mat-label>Choose an option</mat-label>
+                <mat-select>
+                    <mat-option value="option1">Option 1</mat-option>
+                    <mat-option value="option2">Option 2</mat-option>
+                </mat-select>
+            </mat-form-field> -->
+        </div>
+    </div>
+
     <div class="womens_section">
         <div *ngFor="let item of allClothes">
             <div class="container_card">
                 <figure>
-                    <p>-{{item.offSale}}%</p>
-                    <img src="{{item.image}}" alt="Imagen del producto." />
+                    <div class="list_size" [ngClass]="{'souldOut_image': !item.size}">
+                        <p *ngIf="item.size || item.size">-{{item.offSale}}%</p>
+                        <img src="{{item.image}}" alt="Imagen del producto." />
+                        <div class="tallas-container" *ngIf="item.size; else souldOut">
+                            <button *ngFor="let talla of item.size" (click)="seleccionarTalla(item, talla)" [class.selected]="item?.talla === talla">
+                                {{ talla }}
+                            </button>
+                        </div>
+                        <ng-template #souldOut>
+                            <div class="container_souldout">AGOTADO</div>
+                        </ng-template>
+                    </div>
                 </figure>
                 <div class="card_body">
                     <h1>{{item.name}}</h1>
                     <div class="price">
-                        <p>${{item.price}}</p>
+                        <p *ngIf="item.size || item.size">${{item.price}}</p>
                         <h2>${{item.price}}</h2>
                     </div>
-                    <button type="button" (click)="agregarCarrito(item)">
+                    <button type="button" *ngIf="item.size" (click)="agregarCarrito(item)">
                         Agregar
                     </button>
                 </div>
