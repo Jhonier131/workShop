@@ -1,4 +1,4 @@
-const api = 'http://localhost:4000/';
+const api = 'https://shopbackend-xi.vercel.app/';
 
 
 export const environment = {
