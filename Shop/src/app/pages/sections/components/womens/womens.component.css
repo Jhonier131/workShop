@@ -21,7 +21,6 @@
 }
 
 .container_card {
-  /* height: 40rem; */
   width: 100%;
   position: relative;
 }
@@ -98,10 +97,13 @@
 }
 
 .card_body h1 {
-  font-size: 2rem;
+  font-size: 1.6rem;
   font-weight: 500;
   text-transform: capitalize;
   margin: 0;
+  height: 4rem;
+  padding-top: 1rem;
+  line-height: 1;
 }
 
 .card_body p {

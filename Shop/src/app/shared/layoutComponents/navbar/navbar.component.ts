@@ -38,6 +38,7 @@ export class NavbarComponent implements OnInit {
   }
 
   toggleCarrito() {
+    document.body.classList.toggle('no-scroll');
     this.mostrarCarrito = !this.mostrarCarrito;
   }
 
@@ -79,6 +80,7 @@ export class NavbarComponent implements OnInit {
   // }
 
   closeCar() {
+    document.body.classList.remove('no-scroll');
     this.mostrarCarrito = false;
   }
 

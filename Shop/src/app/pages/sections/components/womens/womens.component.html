@@ -73,8 +73,8 @@
                         <p *ngIf="item.size.length && item.offSale">-{{item.offSale}}%</p>
                         <img src="{{item.image}}" alt="Imagen del producto." />
                         <div class="tallas-container" *ngIf="item.size.length; else souldOut">
-                            <button *ngFor="let talla of item.size" (click)="seleccionarTalla(item, talla)" [class.selected]="item?.talla === talla">
-                                {{ talla }}
+                            <button *ngFor="let itemSize of item.size" (click)="seleccionarTalla(item, itemSize)" [class.selected]="item?.sizeSelected == itemSize">
+                                {{ itemSize }}
                             </button>
                         </div>
                         <ng-template #souldOut>
@@ -88,7 +88,7 @@
                         <p *ngIf="item.size.length && item.offSale">${{item.price}}</p>
                         <h2>${{calcPrice(item.price, item.offSale)}}</h2> 
                     </div>
-                    <button type="button" *ngIf="item.size.length" (click)="agregarCarrito(item)">
+                    <button type="button" *ngIf="item.size.length" (click)="addCarItem(item)">
                         Agregar
                     </button>
                 </div>

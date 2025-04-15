@@ -63,3 +63,12 @@
     font-size: 2.2rem;
     font-weight: normal;
 }
+
+@media (max-width: 768px) {
+    .container_footer {
+        margin-bottom: 3rem;
+    }
+    .aboutUs {
+        padding: 1rem;
+    }
+}

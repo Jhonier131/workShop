@@ -137,8 +137,12 @@ h6 {
     color: black;
     letter-spacing: 0.5px;
   }
-  && a img {
-    height: 1.2rem;
+  && a {
+    padding: 1rem;
+    cursor: pointer;
+    && img {
+      height: 1.2rem;
+    }
   }
 }
 

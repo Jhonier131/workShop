@@ -11,7 +11,6 @@ import { SubSink } from 'subsink';
 })
 export class WomensComponent implements OnInit {
   private subs = new SubSink();
-  // public originClothes: any = [];
   public allClothes: any = [];
   public allFilters: any = [];
 
@@ -80,16 +79,17 @@ export class WomensComponent implements OnInit {
     });
   }
 
-  agregarCarrito(item:any) {
+  addCarItem(item:any) {
     console.log('El item es:', item);
-    this.carStoreService.addNewItem(item);
+    if(item.sizeSelected.length) this.carStoreService.addNewItem(item);
   }
 
-  seleccionarTalla(item: any, talla: string): void {
+  seleccionarTalla(item: any, sizeSelected: string): void {
     this.allClothes.map((element: any) => {
-      if(element.id === item.id) element.talla = talla;
+      if(element.id === item.id) element.sizeSelected = sizeSelected;
       return element;
     });
+    console.log(this.allClothes);
   }
 
   calcPrice(price: number, offSale: number): number {

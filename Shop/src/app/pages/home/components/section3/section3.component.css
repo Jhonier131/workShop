@@ -6,8 +6,7 @@
 }
 
 .promotional {
-    margin-top: 3rem;
-    margin-bottom: 3rem;
+    margin: 3rem auto;
     text-align: center;
     display: flex;
     justify-content: center;
@@ -93,4 +92,33 @@
     background-color: black;
     color: white;
     /* border: 2px solid white; */
+}
+
+@media (max-width: 960px) {
+    .offsale {
+        height: 40rem;
+    }
+    .offSale_background {
+        height: 40rem
+    }
+    .offsale h1,
+    .offsale h1 span {
+        font-size: 3rem;
+    }
+    .categories {
+        flex-direction: column;
+        row-gap: .5rem;
+    }
+    .promotional {
+        margin: 2rem auto;
+        width: 90%;
+    }
+    .promotional h1 {
+        font-size: 4rem;
+        word-break: keep-all;
+    }
+    .promotional p {
+        font-size: 1.6rem;
+        width: auto;
+    }
 }
