@@ -39,9 +39,9 @@
 }
 
 .follow {
-    position: absolute;
-    left: 3rem;
-    bottom: 3rem;
+  position: absolute;
+  left: 3rem;
+  bottom: calc(10px + env(safe-area-inset-bottom));
 }
 
 .follow p {

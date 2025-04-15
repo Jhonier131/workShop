@@ -16,3 +16,11 @@ app.use('/r1', products);
 app.listen(4000, ()=>{
     console.log('listening at port 4000');
 })
+
+
+const PORT = 4000;
+const HOST = '192.168.1.115';
+
+// app.listen(PORT, HOST, () => {
+//     console.log(`Servidor corriendo en http://${HOST}:${PORT}`);
+// });

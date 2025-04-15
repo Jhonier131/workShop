@@ -4,5 +4,7 @@ const products = require('../controller/productosController');
 
 router
     .get('/allProducts', products.getAllProducts)
+    .get('/getFilters', products.getFilters)
+    .post('/aplyFilters', products.aplyFilters)
 
 module.exports = router;

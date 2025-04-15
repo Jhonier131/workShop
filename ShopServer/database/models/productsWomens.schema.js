@@ -20,7 +20,12 @@ const productsWomens = new Schema(
         },
         offSale: {
             type: Number
-        }
+        },
+        size: {
+            type: Array,
+            require: false
+        },
+        category: Number
     }
 );
 

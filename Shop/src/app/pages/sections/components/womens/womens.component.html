@@ -1,6 +1,6 @@
 <div class="container-womens">
 
-    <div class="womens_header">
+    <!-- <div class="womens_header">
         <div class="header"></div>
         <div class="header_filter">
             <div>Camisetas</div>
@@ -16,22 +16,52 @@
             <button>Pantalones y jeans</button>
             <button>Camisetas y tops</button>
         </div>
-    </div>
+    </div> -->
 
 
     <div class="container_filter">
         <div class="filter_menu">
-            <h1>Filtrar</h1>
+            <h1 (click)="openFilter()">Filtrar</h1>
         </div>
-        <div class="filter">
-            <h1>Ordenar por: </h1>
-            <!-- <mat-form-field appearance="fill">
-                <mat-label>Choose an option</mat-label>
-                <mat-select>
-                    <mat-option value="option1">Option 1</mat-option>
-                    <mat-option value="option2">Option 2</mat-option>
-                </mat-select>
-            </mat-form-field> -->
+        <div class="filter-by" *ngIf="filtrar">
+            <form class="filter" [formGroup]="filterForm" (ngSubmit)="aplyFilter()">
+                <div class="filter_title">
+                    <h1>Filtrar</h1>
+                    <a (click)="closeFilter()"><img src="../../../../assets/icons/x.png" alt="close"></a>
+                </div>
+                <div class="all_filters"> 
+                    <div>
+                        <p>Ordenar por</p>
+                        <mat-radio-group class="radio-group-filtro" formControlName="order">
+                            <mat-radio-button color="primary" value="1">Mayor precio</mat-radio-button>
+                            <mat-radio-button color="primary" value="0">Menor precio</mat-radio-button>
+                        </mat-radio-group>
+                    </div>
+                    <div class="checbox-container">
+                        <p>Categorias</p>
+                        <mat-checkbox class="checbox-categories"
+                            *ngFor="let filter of allFilters"
+                            [value]="filter"
+                            (change)="onChangeCategory($event)">
+                            {{ filter.name }}
+                        </mat-checkbox>
+                    </div>
+                    <div class="checbox-container">
+                        <p>Talla</p>
+                        <div class="checbox-size">
+                            <mat-checkbox
+                                *ngFor="let size of sizes"
+                                [value]="size"
+                                (change)="onCheckboxChange($event)">
+                                {{ size }}
+                            </mat-checkbox>
+                        </div>
+                    </div>
+                </div>
+                <div class="filter-apply">
+                    <button type="submit" >Aplicar</button>
+                </div>
+            </form>
         </div>
     </div>
 
@@ -39,10 +69,10 @@
         <div *ngFor="let item of allClothes">
             <div class="container_card">
                 <figure>
-                    <div class="list_size" [ngClass]="{'souldOut_image': !item.size}">
-                        <p *ngIf="item.size || item.size">-{{item.offSale}}%</p>
+                    <div class="list_size" [ngClass]="{'souldOut_image': !item.size.length}">
+                        <p *ngIf="item.size.length && item.offSale">-{{item.offSale}}%</p>
                         <img src="{{item.image}}" alt="Imagen del producto." />
-                        <div class="tallas-container" *ngIf="item.size; else souldOut">
+                        <div class="tallas-container" *ngIf="item.size.length; else souldOut">
                             <button *ngFor="let talla of item.size" (click)="seleccionarTalla(item, talla)" [class.selected]="item?.talla === talla">
                                 {{ talla }}
                             </button>
@@ -55,10 +85,10 @@
                 <div class="card_body">
                     <h1>{{item.name}}</h1>
                     <div class="price">
-                        <p *ngIf="item.size || item.size">${{item.price}}</p>
-                        <h2>${{item.price}}</h2>
+                        <p *ngIf="item.size.length && item.offSale">${{item.price}}</p>
+                        <h2>${{calcPrice(item.price, item.offSale)}}</h2> 
                     </div>
-                    <button type="button" *ngIf="item.size" (click)="agregarCarrito(item)">
+                    <button type="button" *ngIf="item.size.length" (click)="agregarCarrito(item)">
                         Agregar
                     </button>
                 </div>
