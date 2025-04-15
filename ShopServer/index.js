@@ -24,3 +24,5 @@ const HOST = '192.168.1.115';
 // app.listen(PORT, HOST, () => {
 //     console.log(`Servidor corriendo en http://${HOST}:${PORT}`);
 // });
+
+module.exports = app;
