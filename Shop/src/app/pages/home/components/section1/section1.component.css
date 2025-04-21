@@ -6,12 +6,27 @@
 }
 
 .contenedor_section {
-  background: url("../../../../../assets/img/section1.jpg") no-repeat center
-    center;
+  background: url("../../../../../assets/img/section1.jpg") no-repeat center center;
   background-size: cover;
   height: 100vh;
   width: 100vw;
   position: relative;
+  overflow: hidden;
+}
+
+.contenedor_section::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4); 
+  z-index: 1;
+}
+
+.contenedor_section > * {
+  position: relative;
+  z-index: 2;
 }
 
 .logo {
@@ -23,23 +38,27 @@
   flex-direction: column;
 }
 
-.logo h1 {
-  font-family: "Bebas Neue", sans-serif;
-  font-weight: 400;
-  font-style: normal;
-  font-size: 25rem;
-  color: white;
-}
-
 .logo p {
   color: white;
-  font-size: 5rem;
-  height: 12rem;
+  font-size: 10rem;
+  width: 80rem;
   font-weight: 500;
+  word-break: keep-all;
+  text-align: center;
+  line-height: 1;
+  position: absolute;
+  top: 18rem;
+}
+
+.logo img {
+  position: absolute;
+  height: 70rem;
+  bottom: 0;
+  filter: brightness(.9);
 }
 
 .follow {
-  position: absolute;
+  position: absolute !important;
   left: 3rem;
   bottom: calc(10px + env(safe-area-inset-bottom));
 }

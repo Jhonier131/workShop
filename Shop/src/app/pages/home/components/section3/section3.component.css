@@ -30,8 +30,12 @@
 }
 
 .offSale_background {
-    background: url('../../../../../assets/img/tela-negra.jpg') no-repeat center center;
-    background-size: cover;
+    background: 
+    linear-gradient(to right, #000 0%, transparent 20%, transparent 80%, #000 100%),
+    url("../../../../../assets/img/Banner.jpeg") no-repeat center center;
+    background-size: contain, cover; 
+    background-repeat: no-repeat;
+    background-position: center center;
     width: 100%;
     height: 50vh;
     filter: brightness(0.35);
