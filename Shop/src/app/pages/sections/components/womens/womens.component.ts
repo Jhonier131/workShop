@@ -3,6 +3,7 @@ import { CarService } from 'src/app/core/store/car/car.service';
 import { ShopService } from '../../services/shop.service';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { SubSink } from 'subsink';
+import { SubjectService } from 'src/app/core/services/subjectService.service';
 
 @Component({
   selector: 'app-womens',
@@ -19,6 +20,8 @@ export class WomensComponent implements OnInit {
   tallaSeleccionada: string | null = null;
   filtrar: boolean = false;
   filterForm!: FormGroup;
+  filterMode: string = 'women';
+  public titleModdule: string = 'Ropa para mujer';
 
   constructor(
     private carStoreService: CarService,
@@ -30,7 +33,7 @@ export class WomensComponent implements OnInit {
   ngOnInit(): void {
     this.buildFilterForm();
     this.irAlInicio();
-    this.getClothes();
+    setTimeout(() => this.getClothes(), 1000);
     this.getFilters();
   }
 
@@ -43,7 +46,17 @@ export class WomensComponent implements OnInit {
   }
 
   getClothes() {
-    this.subs.add(this.shopServices.getClothesWomens().subscribe(respuesta => this.allClothes = respuesta.payload));
+    if(window.location.pathname.includes('/shop/women')) {
+      this.titleModdule = 'Ropa para mujer';
+      this.filterMode = 'women';
+    } else {
+      this.titleModdule = 'Ropa para hombre';
+      this.filterMode = 'men';
+    }
+    if(this.filterMode === 'women')
+      this.subs.add(this.shopServices.getClothesWomens().subscribe(respuesta => this.allClothes = respuesta.payload));
+    else 
+      this.subs.add(this.shopServices.getClothesMen().subscribe(respuesta => this.allClothes = respuesta.payload));
   }
 
   getFilters() {
@@ -113,7 +126,7 @@ export class WomensComponent implements OnInit {
 
   aplyFilter() {
     console.log(this.filterForm!.value);
-    this.subs.add(this.shopServices.aplyFilters(this.filterForm!.value).subscribe(resp => this.allClothes = resp.payload));
+    this.subs.add(this.shopServices.aplyFilters(this.filterForm!.value, this.filterMode).subscribe(resp => this.allClothes = resp.payload));
     this.closeFilter();
   }
 }

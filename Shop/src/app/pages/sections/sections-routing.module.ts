@@ -9,7 +9,10 @@ const routes: Routes = [
     path: '',
     children: [
       {
-        path: 'womens', component: WomensComponent
+        path: 'women', component: WomensComponent
+      },
+      {
+        path: 'men', component: WomensComponent
       }
     ]
   }

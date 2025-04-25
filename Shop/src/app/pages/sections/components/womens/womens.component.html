@@ -1,26 +1,12 @@
 <div class="container-womens">
 
-    <!-- <div class="womens_header">
-        <div class="header"></div>
-        <div class="header_filter">
-            <div>Camisetas</div>
-            <div>Jeans</div>
-            <div>Vestidos</div>
-        </div>
+    <div class="navbar-clothes">
+        <li *ngFor="let item of allFilters"><a>{{item.name}}</a></li>
     </div>
-
-    <div class="header_promotional">
-        <h1>Descubre tu estilo</h1>
-        <p>Explora nuestra colección exclusiva y encuentra las piezas perfectas para completar tu look.</p>
-        <div class="prom_btn">
-            <button>Pantalones y jeans</button>
-            <button>Camisetas y tops</button>
-        </div>
-    </div> -->
-
 
     <div class="container_filter">
         <div class="filter_menu">
+            <p class="title-module">{{titleModdule}}</p>
             <h1 (click)="openFilter()">Filtrar</h1>
         </div>
         <div class="filter-by" *ngIf="filtrar">
@@ -65,7 +51,7 @@
         </div>
     </div>
 
-    <div class="womens_section">
+    <div class="womens_section" *ngIf="allClothes.length > 0; else noClothes">
         <div *ngFor="let item of allClothes">
             <div class="container_card">
                 <figure>
@@ -95,4 +81,9 @@
             </div>
         </div>
     </div>
+    <ng-template #noClothes>
+        <div class="noClothes">
+            <div class="loader"></div>
+        </div>
+    </ng-template>
 </div>

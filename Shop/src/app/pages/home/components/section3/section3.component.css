@@ -49,8 +49,9 @@
     color: white;
     display: flex;
     justify-content: center;
+    align-items: center;
     text-align: center;
-    padding-top: 12rem;
+    padding-top: 10vh;
     flex-direction: column;
     margin: auto;
     position: absolute;
@@ -62,7 +63,6 @@
     font-weight: 300;
     width: 300px;
     line-height: 1.2;
-    margin: auto;
 }
 
 .percentage {
@@ -100,10 +100,10 @@
 
 @media (max-width: 960px) {
     .offsale {
-        height: 40rem;
+        height: 35rem;
     }
     .offSale_background {
-        height: 40rem
+        height: 35rem
     }
     .offsale h1,
     .offsale h1 span {

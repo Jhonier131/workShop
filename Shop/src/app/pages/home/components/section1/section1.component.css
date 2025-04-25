@@ -47,7 +47,7 @@
   text-align: center;
   line-height: 1;
   position: absolute;
-  top: 18rem;
+  top: 16%;
 }
 
 .logo img {
@@ -82,8 +82,21 @@
   filter: invert(1);
 }
 
+@media (max-width: 830px) {
+  .logo p {
+    width: 100%;
+    font-size: 7rem;
+  }
+
+  .logo img {
+    width: 100%;
+    height: auto;
+    bottom: 5%;
+  }
+}
+
 @media (max-width: 768px) {
   .follow {
-    bottom: 8rem;
+    bottom: 8.5rem;
   }
 }

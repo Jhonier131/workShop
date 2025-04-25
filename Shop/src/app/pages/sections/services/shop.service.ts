@@ -18,8 +18,12 @@ export class ShopService {
     return this.http.get<any>(environment.api + 'r1/allProducts');
   }
 
-  public aplyFilters(filters: any): Observable<any> {
-    return this.http.post<any>(environment.api + 'r1/aplyFilters', filters);
+  public getClothesMen(): Observable<any> {
+    return this.http.get<any>(environment.api + 'r1/allProductsMen');
+  }
+
+  public aplyFilters(filters: any, mode: string): Observable<any> {
+    return this.http.post<any>(environment.api + 'r1/aplyFilters', {...filters, mode});
   }
 
 
