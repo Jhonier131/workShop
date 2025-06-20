@@ -1,16 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { CarService } from 'src/app/core/store/car/car.service';
 import { ShopService } from '../../services/shop.service';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { SubSink } from 'subsink';
 import { SubjectService } from 'src/app/core/services/subjectService.service';
+import { LoaderService } from 'src/app/core/services/loader.service';
+import { constantes } from 'src/app/core/data/constantes';
 
 @Component({
   selector: 'app-womens',
   templateUrl: './womens.component.html',
   styleUrls: ['./womens.component.css'],
 })
-export class WomensComponent implements OnInit {
+export class WomensComponent implements OnInit, AfterViewInit {
   private subs = new SubSink();
   public allClothes: any = [];
   public allFilters: any = [];
@@ -21,9 +23,10 @@ export class WomensComponent implements OnInit {
   filtrar: boolean = false;
   filterForm!: FormGroup;
   filterMode: string = 'women';
-  public titleModdule: string = 'Ropa para mujer';
+  public titleModdule: string = '';
 
   constructor(
+    public loaderService: LoaderService,
     private carStoreService: CarService,
     private shopServices: ShopService,
     private fb: FormBuilder
@@ -31,10 +34,13 @@ export class WomensComponent implements OnInit {
   }  
 
   ngOnInit(): void {
+    this.loaderService.show();
     this.buildFilterForm();
     this.irAlInicio();
-    setTimeout(() => this.getClothes(), 1000);
-    this.getFilters();
+    setTimeout(() => this.getClothes(), 2000);
+    this.getClothes();
+  }
+  ngAfterViewInit(): void {
   }
 
   buildFilterForm() {
@@ -47,20 +53,29 @@ export class WomensComponent implements OnInit {
 
   getClothes() {
     if(window.location.pathname.includes('/shop/women')) {
-      this.titleModdule = 'Ropa para mujer';
-      this.filterMode = 'women';
+      this.filterMode = constantes.FILTER_WOMEN;
+      this.subs.add(this.shopServices.getClothesWomens().subscribe(respuesta => {
+        this.allClothes = respuesta.payload;
+        this.titleModdule = 'Ropa para mujer';
+        this.loaderService.hide();
+      }));
     } else {
-      this.titleModdule = 'Ropa para hombre';
-      this.filterMode = 'men';
+      this.filterMode = constantes.FILTER_MEN;
+      this.subs.add(this.shopServices.getClothesMen().subscribe(respuesta => {
+        this.allClothes = respuesta.payload
+        this.titleModdule = 'Ropa para hombre';
+        this.loaderService.hide();
+      }));
     }
-    if(this.filterMode === 'women')
-      this.subs.add(this.shopServices.getClothesWomens().subscribe(respuesta => this.allClothes = respuesta.payload));
-    else 
-      this.subs.add(this.shopServices.getClothesMen().subscribe(respuesta => this.allClothes = respuesta.payload));
+    this.getFilters();
   }
 
   getFilters() {
-    this.subs.add(this.shopServices.getFilters().subscribe(respuesta => this.allFilters = respuesta.payload));
+    this.subs.add(this.shopServices.getFilters().subscribe(respuesta => {
+      this.allFilters = this.filterMode === constantes.FILTER_WOMEN ?
+        respuesta.payload.filter((item: any) => item.gender !== "M"):
+        respuesta.payload.filter((item: any) => item.gender !== "F");
+    }));
   }
 
   onChangeCategory(event: any) {
@@ -125,8 +140,20 @@ export class WomensComponent implements OnInit {
   }
 
   aplyFilter() {
-    console.log(this.filterForm!.value);
-    this.subs.add(this.shopServices.aplyFilters(this.filterForm!.value, this.filterMode).subscribe(resp => this.allClothes = resp.payload));
+    this.loaderService.show();
+    this.getClothesFiltered(this.filterForm!.value);
     this.closeFilter();
+  }
+
+  filterByCategory(category: any):void {
+    this.loaderService.show();
+    this.getClothesFiltered({'categories':[category.id]});
+  }
+
+  getClothesFiltered(filters: any) {
+    this.subs.add(this.shopServices.aplyFilters(filters, this.filterMode).subscribe(resp => {
+      this.allClothes = resp.payload;
+      this.loaderService.hide();
+    }));
   }
 }

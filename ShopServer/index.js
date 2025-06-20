@@ -4,6 +4,7 @@ const cors = require('cors');
 const db = require('./database/mongo.js');
 const app = express();
 const products = require('./routes/products.routes.js');
+const payments = require('./routes/payments.routes.js');
 
 db.dbInit().then(() => console.log('Conexion realizada'))
 
@@ -12,6 +13,7 @@ app.use(json())
 app.use(cors())
 
 app.use('/r1', products);
+app.use('/r2', payments);
 
 app.listen(4000, ()=>{
     console.log('listening at port 4000');

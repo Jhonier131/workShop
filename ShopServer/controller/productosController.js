@@ -18,6 +18,7 @@ const getAllProducts = async (req, res) => {
 const getAllProductsMen = async (req, res) => {
     try {
         console.log('getAllProductsMen');
+        console.log(req.params);
         const products = await productsM.find();
         response(res, { payload: products})
     } catch (error) {

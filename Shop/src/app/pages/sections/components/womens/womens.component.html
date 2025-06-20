@@ -1,7 +1,7 @@
 <div class="container-womens">
 
     <div class="navbar-clothes">
-        <li *ngFor="let item of allFilters"><a>{{item.name}}</a></li>
+        <li *ngFor="let item of allFilters"><a (click)="filterByCategory(item)">{{item.name}}</a></li>
     </div>
 
     <div class="container_filter">
@@ -50,8 +50,7 @@
             </form>
         </div>
     </div>
-
-    <div class="womens_section" *ngIf="allClothes.length > 0; else noClothes">
+    <div class="womens_section" *ngIf="allClothes.length; else noClothes">
         <div *ngFor="let item of allClothes">
             <div class="container_card">
                 <figure>
@@ -83,7 +82,6 @@
     </div>
     <ng-template #noClothes>
         <div class="noClothes">
-            <div class="loader"></div>
         </div>
     </ng-template>
 </div>

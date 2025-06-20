@@ -5,13 +5,15 @@ import { SharedRoutingModule } from './shared-routing.module';
 import { NavbarComponent } from './layoutComponents/navbar/navbar.component';
 import { HeaderLogoComponent } from './layoutComponents/header-logo/header-logo.component';
 import { FooterComponent } from './layoutComponents/footer/footer.component';
+import { LoaderComponent } from './ui/loader/loader.component';
 
 
 @NgModule({
   declarations: [
     NavbarComponent,
     HeaderLogoComponent,
-    FooterComponent
+    FooterComponent,
+    LoaderComponent
   ],
   imports: [
     CommonModule,
@@ -20,7 +22,8 @@ import { FooterComponent } from './layoutComponents/footer/footer.component';
   exports: [
     NavbarComponent,
     HeaderLogoComponent,
-    FooterComponent
+    FooterComponent,
+    LoaderComponent
   ]
 })
 export class SharedModule { }

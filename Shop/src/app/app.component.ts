@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { LoaderService } from './core/services/loader.service';
 
 @Component({
   selector: 'app-root',
@@ -6,10 +7,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  title = 'workSale';
+  title = 'Red Vibes';
   public hiddeFooter: boolean = false;
+  public isLoading = this.loaderService.loading$;
 
-  constructor() { }
+  constructor(private loaderService: LoaderService) { }
 
   ngOnInit(): void {
     console.log(window.location.pathname);

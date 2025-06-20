@@ -2,6 +2,7 @@ import { AfterViewInit, Component, HostListener, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { SubjectService } from 'src/app/core/services/subjectService.service';
 import { CarService } from 'src/app/core/store/car/car.service';
+import { ShopService } from 'src/app/pages/sections/services/shop.service';
 
 @Component({
   selector: 'app-navbar',
@@ -17,7 +18,8 @@ export class NavbarComponent implements OnInit {
 
   constructor(
     private carStoreService: CarService,
-    private subjectService: SubjectService
+    private subjectService: SubjectService,
+    private shop: ShopService
   ) {
   }
 

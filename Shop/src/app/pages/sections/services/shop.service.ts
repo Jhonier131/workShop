@@ -9,6 +9,7 @@ import { environment } from 'src/environments/environment';
 export class ShopService {
   
   public headers = {
+    Authorization: 'Bearer laksjdlaksjndlaskdnalskdjllsakldjsa',
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
 
@@ -29,5 +30,9 @@ export class ShopService {
 
   public getFilters(): Observable<any> {
     return this.http.get<any>(environment.api + 'r1/getFilters');
+  }
+
+  public prueba1(): Observable<any> {
+    return this.http.get<any>(environment.api, this.headers);
   }
 }

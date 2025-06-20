@@ -7,6 +7,7 @@
 .container-womens {
   width: 70%;
   height: 100%;
+  min-height: 80vh;
   padding: 2rem 0;
   margin: auto;
   margin-top: 5rem;
@@ -394,31 +395,5 @@
     && li a {
       font-size: 1.6rem !important;
     }
-  }
-}
-
-/* Loader */
-.loader {
-  width: fit-content;
-  font-weight: 900;
-  white-space: pre;
-  font-size: 5rem;
-  line-height: 1.3em;
-  height: 1.3em;
-  overflow: hidden;
-}
-
-.loader:before {
-  content: "LOADING...\AHOADING...\AHOOADING...\AHOODDING...\AHOODWING...\AHOODWANG...\AHOODWAVG...\AHOODWAVE...\AHOODWAVE..\AHOODWAVE.\AHOODWAVE";
-  white-space: pre;
-  font-size: 2rem;
-  font-weight: 500;
-  display: inline-block;
-  animation: l39 2s infinite steps(11) alternate;
-}
-
-@keyframes l39 {
-  100% {
-    transform: translateY(-100%)
   }
 }
