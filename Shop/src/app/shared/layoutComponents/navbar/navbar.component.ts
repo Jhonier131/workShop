@@ -1,5 +1,7 @@
-import { AfterViewInit, Component, HostListener, OnInit } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
+import { PaymentsService } from 'src/app/core/services/payments.service';
 import { SubjectService } from 'src/app/core/services/subjectService.service';
 import { CarService } from 'src/app/core/store/car/car.service';
 import { ShopService } from 'src/app/pages/sections/services/shop.service';
@@ -10,7 +12,6 @@ import { ShopService } from 'src/app/pages/sections/services/shop.service';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
-
   public navbarTransparent: boolean = false;
   mostrarCarrito: boolean = false;
   public carItems: number = 0;
@@ -19,7 +20,9 @@ export class NavbarComponent implements OnInit {
   constructor(
     private carStoreService: CarService,
     private subjectService: SubjectService,
-    private shop: ShopService
+    private shop: ShopService,
+    private paymentsService: PaymentsService,
+    private router: Router
   ) {
   }
 
@@ -57,22 +60,26 @@ export class NavbarComponent implements OnInit {
   }
 
   getTotal(): number {
-      let total = 0;
-      this.allCarItems.map((item: any) => {
-        if(Object.keys(item).length) total += item.price * item.quantity
-      })
-      return total;
+    let total = 0;
+    this.allCarItems.map((item: any) => {
+      if(Object.keys(item).length) total += item.price * item.quantity
+    })
+    return total;
   }
 
   saleProducts() {
-    let i = 0;
-    const sale = this.allCarItems.map((item: any) => {
-      if(!Object.keys(item).length) return;
-      i++;
-      return `${i}. Producto: ${item.name} - Cantidad: ${item.quantity}%0D%0A`;
-    }).join('');
-
-    window.open("https://api.whatsapp.com/send?phone=573217742884&text=" + "¡Hola! Me gustaría hacer el siguiente pedido:%0D%0A" + sale + "Podrías decirme el precio total por favor. Gracias.", "_blank")
+    this.closeCar();
+    setTimeout(() => {
+      this.router.navigate(['/shop/checkout']);
+    }, 50);
+    
+    // let i = 0;
+    // const sale = this.allCarItems.map((item: any) => {
+    //   if(!Object.keys(item).length) return;
+    //   i++;
+    //   return `${i}. Producto: ${item.name} - Cantidad: ${item.quantity}%0D%0A`;
+    // }).join('');
+    // window.open("https://api.whatsapp.com/send?phone=573217742884&text=" + "¡Hola! Me gustaría hacer el siguiente pedido:%0D%0A" + sale + "Podrías decirme el precio total por favor. Gracias.", "_blank")
   }
 
   // @HostListener('document:click', ['$event'])

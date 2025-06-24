@@ -1,52 +1,82 @@
 const { response } = require("./helpers/dataResponse");
+const crypto = require("crypto");
 
-const merchantId = '508029';
-const accountId = '512321';
-const apiKey = '4Vj8eK4rloUd272L48hsrarnUA';
-const currency = 'COP';
-const test = '1';
-const responseUrl = 'http://localhost:4200/women';
-const confirmationUrl = 'http://localhost:4200';
+const merchantId = "508029";
+const accountId = "512321";
+const apiKey = "4Vj8eK4rloUd272L48hsrarnUA";
+const currency = "COP";
+const test = "1";
+const responseUrl = "http://localhost:4200/women";
+const confirmationUrl = "http://localhost:4200";
 
+// 🔐 Campos requeridos para generar firma
+const referenceCode = "pedido123";
+const amount = 20000;
+
+// 🧮 Impuestos (simulados para pruebas)
+const tax = 3193;
+const taxReturnBase = amount - tax;
 
 const getForm = async (req, res) => {
   res.sendFile(path.join(__dirname, "public", "form.html"));
 };
 
 const pay = async (req, res) => {
-  const { referenceCode, description, amount, buyerEmail } = req.body;
+  try {
+    const { amount, email } = req.body;
+    console.log(req.body);
 
-  const signatureRaw = `${apiKey}~${merchantId}~${referenceCode}~${amount}~${currency}`;
-  const signature = crypto.createHash("md5").update(signatureRaw).digest("hex");
+    if (!amount || !email) {
+      return res.status(400).send("Faltan datos");
+    }
 
-  const formHtml = `
-    <html>
-      <body onload="document.forms[0].submit()">
-         <form method="post" action="https://sandbox.checkout.payulatam.com/ppp-web-gateway-payu/">
-          <input name="merchantId"      type="hidden"  value="508029"   >
-          <input name="accountId"       type="hidden"  value="512321" >
-          <input name="description"     type="hidden"  value="Test PAYU"  >
-          <input name="referenceCode"   type="hidden"  value="TestPayU" >
-          <input name="amount"          type="hidden"  value="20000"   >
-          <input name="tax"             type="hidden"  value="3193"  >
-          <input name="taxReturnBase"   type="hidden"  value="16806" >
-          <input name="currency"        type="hidden"  value="COP" >
-          <input name="signature"       type="hidden"  value="7ee7cf808ce6a39b17481c54f2c57acc"  >
-          <input name="test"            type="hidden"  value="0" >
-          <input name="buyerEmail"      type="hidden"  value="test@test.com" >
-          <input name="responseUrl"     type="hidden"  value="http://www.test.com/response" >
-          <input name="confirmationUrl" type="hidden"  value="http://www.test.com/confirmation" >
-          <input name="Submit"          type="submit"  value="Enviar" >
-        </form>
-      </body>
-    </html>
-  `;
+    const tax = 0;
+    const taxReturnBase = amount - tax;
 
-  res.send(formHtml);
+    const paymentsReference = generatePaymentReference();
+    console.log(paymentsReference);
+
+    const signatureRaw = `${apiKey}~${merchantId}~${paymentsReference}~${amount}~${currency}`;
+    const signature = crypto.createHash("md5").update(signatureRaw).digest("hex");
+    console.log(signature);
+
+    const formHtml = `
+      <html>
+        <body>
+           <form id="payuForm" method="post" action="https://sandbox.checkout.payulatam.com/ppp-web-gateway-payu/">
+            <input name="merchantId"      type="hidden"  value="${merchantId}"   >
+            <input name="accountId"       type="hidden"  value="${accountId}" >
+            <input name="description"     type="hidden"  value="Pago en tienda Red Vibes"  >
+            <input name="referenceCode"   type="hidden"  value="${paymentsReference}" >
+            <input name="amount"          type="hidden"  value="${amount}"   >
+            <input name="tax"             type="hidden"  value="${tax}"  >
+            <input name="taxReturnBase"   type="hidden"  value="${taxReturnBase}" >
+            <input name="currency"        type="hidden"  value="COP" >
+            <input name="signature"       type="hidden"  value="${signature}"  >
+            <input name="test"            type="hidden"  value="1" >
+            <input name="buyerEmail"      type="hidden"  value="${email}" >
+            <input name="responseUrl"     type="hidden"  value="http://localhost:4200/shop/men" >
+            <input name="confirmationUrl" type="hidden"  value="http://localhost:4200/shop/men" >
+            input name="Submit"          type="submit"  value="Send" >
+          </form>
+
+          <script>
+            document.getElementById('payuForm').submit();
+            console.log('Enviado');
+          </script>
+        </body>
+      </html>
+    `;
+
+    response(res, { payload: formHtml });
+  } catch (err) {
+    console.error("❌ Error generando WebCheckout:", err);
+    res.status(500).send("Error generando WebCheckout");
+  }
 };
 
 // Recepción de respuesta desde PayU (navegador)
-const resp = async (req, res) => {
+const responseurl = async (req, res) => {
   res.send("Gracias por tu compra. Revisa tu correo para más detalles.");
 };
 
@@ -56,9 +86,15 @@ const confirmation = async (req, res) => {
   res.sendStatus(200);
 };
 
+function generatePaymentReference() {
+  const now = new Date().toISOString();
+  const hash = crypto.createHash("md5").update(now).digest("hex");
+  return hash.slice(0, 8).toUpperCase();
+}
+
 module.exports = {
   getForm,
   pay,
-  resp,
+  responseurl,
   confirmation,
 };

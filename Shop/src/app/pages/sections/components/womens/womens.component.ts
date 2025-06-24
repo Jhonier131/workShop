@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { CarService } from 'src/app/core/store/car/car.service';
 import { ShopService } from '../../services/shop.service';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
@@ -6,13 +6,14 @@ import { SubSink } from 'subsink';
 import { SubjectService } from 'src/app/core/services/subjectService.service';
 import { LoaderService } from 'src/app/core/services/loader.service';
 import { constantes } from 'src/app/core/data/constantes';
+import { PaymentsService } from 'src/app/core/services/payments.service';
 
 @Component({
   selector: 'app-womens',
   templateUrl: './womens.component.html',
   styleUrls: ['./womens.component.css'],
 })
-export class WomensComponent implements OnInit, AfterViewInit {
+export class WomensComponent implements OnInit {
   private subs = new SubSink();
   public allClothes: any = [];
   public allFilters: any = [];
@@ -39,8 +40,6 @@ export class WomensComponent implements OnInit, AfterViewInit {
     this.irAlInicio();
     setTimeout(() => this.getClothes(), 2000);
     this.getClothes();
-  }
-  ngAfterViewInit(): void {
   }
 
   buildFilterForm() {

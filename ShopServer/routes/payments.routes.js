@@ -5,7 +5,7 @@ const products = require('../controller/paymentsController');
 router
     .get('/', products.getForm)
     .post('/pay', products.pay)
-    .post('/respuesta', products.resp)
-    .post('/confirmacion', products.confirmation);
+    .post('/responseurl', products.responseurl)
+    .post('/confirmation', products.confirmation);
 
 module.exports = router;
