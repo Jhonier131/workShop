@@ -71,7 +71,7 @@
     </div>
     <div class="card-container-resume">
       <h2>Resumen de la compra</h2>
-      <p>Cantidad de productos: {{ allCarItems.length - 1 }}</p>
+      <p>Cantidad de productos: {{ allCarItems.length }}</p>
       <p>Total: $ {{ getTotal() | currency : " " }}</p>
       <button class="Btn" (click)="confirmPayment()">
         Pay

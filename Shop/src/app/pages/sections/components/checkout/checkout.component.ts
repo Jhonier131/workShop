@@ -15,6 +15,7 @@ export class CheckoutComponent implements OnInit, AfterViewInit {
   @ViewChild('formPay', { static: true }) formPay!: ElementRef;
   checkoutForm!: FormGroup;
   allCarItems!: any;
+  private items: any[] = [];
 
   constructor(
     private fb: FormBuilder,
@@ -40,14 +41,18 @@ export class CheckoutComponent implements OnInit, AfterViewInit {
       phone: ['3217742884', Validators.required],
       department: ['Valle del Cauca', Validators.required],
       address: ['Cra 93 C Bis O', Validators.required],
-      paymentMethod: ['payu', Validators.required]
+      paymentMethod: ['payu', Validators.required],
     });
   }
 
   getItemsStorage() {
     this.carStoreService.selectCarItems$().subscribe((resp: any) => {
-      this.allCarItems = resp.carItems;
-      console.log(this.allCarItems);
+      this.allCarItems = resp.carItems.filter((item: any) => Object.keys(item).length > 0);;
+      this.items = this.allCarItems.map((item: any) => ({
+        productId: item._id,
+        size: item.sizeSelected,
+        quantity: item.quantity
+      }));
     });
   }
 
@@ -63,8 +68,11 @@ export class CheckoutComponent implements OnInit, AfterViewInit {
     console.log('💡 formPay está disponible:', this.checkoutForm.controls);
     let datos = {
       ...this.checkoutForm.value,
-      amount: this.getTotal()
+      amount: this.getTotal(),
+      items: this.items
     };
+
+    console.log(datos);
   
     this.paymentsService.getPayForm(datos).subscribe((html) => {
       console.log(html);
