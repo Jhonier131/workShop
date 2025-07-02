@@ -1,4 +1,4 @@
-const api = 'https://shopbackend-xi.vercel.app/';
+const api = 'https://redvibes-server.onrender.com/';
 
 export const environment = {
   production: true,
