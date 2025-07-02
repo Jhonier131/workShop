@@ -37,7 +37,8 @@ export class NavbarComponent implements OnInit {
 
   getItemsStorage() {
     this.carStoreService.selectCarItems$().subscribe((resp: any) => {
-      this.carItems = resp.carItems.length - 1;
+      this.carItems = resp.carItems.length;
+      console.log(resp.carItems);
       this.allCarItems = resp.carItems;
     });
   }
@@ -61,6 +62,7 @@ export class NavbarComponent implements OnInit {
 
   getTotal(): number {
     let total = 0;
+    console.log('this.allCarItems', this.allCarItems);
     this.allCarItems.map((item: any) => {
       if(Object.keys(item).length) total += item.price * item.quantity
     })

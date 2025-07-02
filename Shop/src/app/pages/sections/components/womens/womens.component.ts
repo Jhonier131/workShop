@@ -38,7 +38,8 @@ export class WomensComponent implements OnInit {
     this.loaderService.show();
     this.buildFilterForm();
     this.irAlInicio();
-    setTimeout(() => this.getClothes(), 2000);
+    this.getClothes()
+    // setTimeout(() => this.getClothes(), 2000);
   }
 
   buildFilterForm() {

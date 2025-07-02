@@ -4,6 +4,7 @@ import { Store } from '@ngrx/store';
 import * as carActions from './car-actions';
 import * as carSelector from './car-selectors';
 import { Observable } from 'rxjs';
+import { CarItem } from '../../data/models/car-model';
 
 @Injectable({
   providedIn: 'root'
@@ -12,30 +13,30 @@ export class CarService {
 
   constructor(private store: Store<any>) { }
 
-  public addNewItem(newItem: any) {
+  public addNewItem(newItem: CarItem) {
     this.store.dispatch(
       carActions.addItem({
         newItem: {...newItem, quantity: 1}
       }));
   }
-  public incrementItem(item: any) {
+  public incrementItem(item: CarItem) {
     this.store.dispatch(
       carActions.increment({
-        item: {...item}
+        newItem: {...item}
       }));
   }
 
-  public decrementItem(item: any) {
+  public decrementItem(item: CarItem) {
     this.store.dispatch(
       carActions.decrement({
-        item: {...item}
+        newItem: {...item}
       }));
   }
 
-  public deleteItemcar(item: any) {
+  public deleteItemcar(item: CarItem) {
     this.store.dispatch(
       carActions.deleteItem({
-        item: {...item}
+        newItem: {...item}
       }));
   }
 

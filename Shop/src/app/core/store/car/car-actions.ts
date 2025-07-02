@@ -1,10 +1,11 @@
 import { createAction, props } from "@ngrx/store";
+import { CarItem } from "../../data/models/car-model";
 
-export const increment = createAction('[Counter Component] Increment', props<{ item: any }>());
-export const decrement = createAction('[Counter Component] Decrement', props<{ item: any }>());
-export const deleteItem = createAction('[Counter Component] Delete', props<{ item: any }>());
+export const increment = createAction('[Counter Component] Increment', props<{ newItem: CarItem }>());
+export const decrement = createAction('[Counter Component] Decrement', props<{ newItem: CarItem }>());
+export const deleteItem = createAction('[Counter Component] Delete', props<{ newItem: CarItem }>());
 
 export const addItem = createAction(
     '[ADD ITEM] Adiciona item',
-    props<{ newItem: any }>()
+    props<{ newItem: CarItem }>()
 )

@@ -16,12 +16,16 @@ app.use('/r1', products);
 app.use('/r2', payments);
 
 
-const PORT = 4000;
+const PORT = process.env.PORT || 4000;
 // const HOST = '192.168.1.115';
 const HOST = 'localhost';
 
-app.listen(PORT, HOST, () => {
-    console.log(`Servidor corriendo en http://${HOST}:${PORT}`);
+// app.listen(PORT, HOST, () => {
+//     console.log(`Servidor corriendo en http://${HOST}:${PORT}`);
+// });
+
+app.listen(PORT, () => {
+    console.log(`Servidor corriendo en el puerto ${PORT}`);
 });
 
 module.exports = app;
