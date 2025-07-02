@@ -15,6 +15,7 @@ const transactionSchema = new mongoose.Schema(
     installments: { type: Number },
     createdAt: { type: Date, default: Date.now },
     userId: { type: mongoose.Schema.Types.ObjectId, ref: "users" },
+    idBuys: { type: mongoose.Schema.Types.ObjectId, ref: "purchaseditems" }
   }
 );
 

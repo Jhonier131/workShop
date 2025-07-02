@@ -39,7 +39,6 @@ export class WomensComponent implements OnInit {
     this.buildFilterForm();
     this.irAlInicio();
     setTimeout(() => this.getClothes(), 2000);
-    this.getClothes();
   }
 
   buildFilterForm() {
@@ -51,21 +50,18 @@ export class WomensComponent implements OnInit {
   }
 
   getClothes() {
-    if(window.location.pathname.includes('/shop/women')) {
-      this.filterMode = constantes.FILTER_WOMEN;
-      this.subs.add(this.shopServices.getClothesWomens().subscribe(respuesta => {
-        this.allClothes = respuesta.payload;
+    const url = window.location.pathname.includes('/shop/women') ? 'mujer' : 'hombre';
+    this.subs.add(this.shopServices.getAllClothes(url).subscribe(respuesta => {
+      this.allClothes = respuesta.payload;
+      this.loaderService.hide();
+      if(url === 'mujer') {
+        this.filterMode = constantes.FILTER_WOMEN;
         this.titleModdule = 'Ropa para mujer';
-        this.loaderService.hide();
-      }));
-    } else {
-      this.filterMode = constantes.FILTER_MEN;
-      this.subs.add(this.shopServices.getClothesMen().subscribe(respuesta => {
-        this.allClothes = respuesta.payload
+      } else {
+        this.filterMode = constantes.FILTER_MEN;
         this.titleModdule = 'Ropa para hombre';
-        this.loaderService.hide();
-      }));
-    }
+      }
+    }));
     this.getFilters();
   }
 

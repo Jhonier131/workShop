@@ -9,7 +9,6 @@ import { environment } from 'src/environments/environment';
 export class PaymentsService {
 
   public headers = {
-    Authorization: 'Bearer laksjdlaksjndlaskdnalskdjllsakldjsa',
     headers: new HttpHeaders({ 'Content-Type': 'application/json', responseType: 'text' })
   };
 

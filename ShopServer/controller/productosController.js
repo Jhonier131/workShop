@@ -1,31 +1,40 @@
 const { response } = require("./helpers/dataResponse");
 const { productsW } = require('../database/models/productsWomens.schema.js');
 const { productsM } = require('../database/models/productsMens.schema.js');
+const { allProducts } = require('../database/models/products.schema.js'); 
 const { categoriesF } = require('../database/models/categoryFilters.js');
 
-
 const getAllProducts = async (req, res) => {
-    try {
-        console.log('getAllProducts');
-        const products = await productsW.find();
-        response(res, { payload: products})
-    } catch (error) {
-        console.log("Error -> ", error.message);
-        return res.status(500).json(error.message);
-    }
-}
+  try {
+    const genderParam = req.params.gender?.toLowerCase();
 
-const getAllProductsMen = async (req, res) => {
-    try {
-        console.log('getAllProductsMen');
-        console.log(req.params);
-        const products = await productsM.find();
-        response(res, { payload: products})
-    } catch (error) {
-        console.log("Error -> ", error.message);
-        return res.status(500).json(error.message);
+    console.log(`getAllProducts: ${genderParam}`);
+
+    if (!['hombre', 'mujer', 'unisex'].includes(genderParam)) {
+      return res.status(400).json({ message: "Género inválido. Usa 'hombre', 'mujer' o 'unisex'." });
     }
-}
+
+    const filteredProducts = await allProducts.find({ gender: genderParam });
+
+    response(res, { payload: filteredProducts });
+
+  } catch (error) {
+    console.log("Error -> ", error.message);
+    return res.status(500).json(error.message);
+  }
+};
+
+// const getAllProductsMen = async (req, res) => {
+//     try {
+//         console.log('getAllProductsMen');
+//         console.log(req.params);
+//         const products = await productsM.find();
+//         response(res, { payload: products})
+//     } catch (error) {
+//         console.log("Error -> ", error.message);
+//         return res.status(500).json(error.message);
+//     }
+// }
 
 const aplyFilters = async (req, res) => {
     try {
@@ -64,7 +73,7 @@ const getFilters = async (req, res) => {
 
 module.exports = {
     getAllProducts,
-    getAllProductsMen,
+    // getAllProductsMen,
     aplyFilters,
     getFilters
 }

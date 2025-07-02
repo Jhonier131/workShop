@@ -15,7 +15,7 @@ const routes: Routes = [
         path: 'men', component: WomensComponent
       },
       {
-        path: 'checkout', component: CheckoutComponent
+        path: 'checkout', pathMatch: 'full', component: CheckoutComponent
       }
     ]
   }

@@ -15,7 +15,11 @@
             formControlName="fullName"
           />
           <label class="inputLabel">Nombre</label>
-          <div class="inputUnderline"></div>
+          <div *ngIf="validateFullName" class="divError">
+              <mat-error *ngIf="fullName!.errors!.required">
+                    {{constantes.TEXT_ERROR_REQUIRED}}
+              </mat-error>
+          </div>
         </div>
         <div class="inputContainer">
           <input
@@ -25,7 +29,11 @@
             formControlName="documentId"
           />
           <label class="inputLabel">Cedula</label>
-          <div class="inputUnderline"></div>
+          <div *ngIf="validateDocumentId" class="divError">
+              <mat-error *ngIf="documentId!.errors!.required">
+                    {{constantes.TEXT_ERROR_REQUIRED}}
+              </mat-error>
+          </div>
         </div>
         <div class="inputContainer">
           <input
@@ -35,7 +43,11 @@
             formControlName="email"
           />
           <label class="inputLabel">Correo</label>
-          <div class="inputUnderline"></div>
+          <div *ngIf="validateEmail" class="divError">
+              <mat-error *ngIf="email!.errors!.required">
+                    {{constantes.TEXT_ERROR_REQUIRED}}
+              </mat-error>
+          </div>
         </div>
         <div class="inputContainer">
           <input
@@ -45,17 +57,46 @@
             formControlName="phone"
           />
           <label class="inputLabel">Telefono</label>
-          <div class="inputUnderline"></div>
+          <div *ngIf="validatePhone" class="divError">
+              <mat-error *ngIf="phone!.errors!.required">
+                    {{constantes.TEXT_ERROR_REQUIRED}}
+              </mat-error>
+          </div>
         </div>
         <div class="inputContainer">
-          <input
-            required=""
+          <select
+            required
             class="customInput"
-            type="text"
             formControlName="department"
-          />
+            (change)="onDepartmentChange($event.target)"
+          >
+            <option value="" disabled selected>
+              Seleccione un departamento
+            </option>
+            <option *ngFor="let dept of departments" [value]="dept.id">
+              {{ dept.name }}
+            </option>
+          </select>
           <label class="inputLabel">Departamento</label>
-          <div class="inputUnderline"></div>
+          <div *ngIf="validateDepartment" class="divError">
+              <mat-error *ngIf="department!.errors!.required">
+                    {{constantes.TEXT_ERROR_REQUIRED}}
+              </mat-error>
+          </div>
+        </div>
+        <div class="inputContainer">
+          <select required class="customInput" formControlName="city">
+            <option value="" disabled selected>Seleccione una ciudad</option>
+            <option *ngFor="let city of cities" [value]="city">
+              {{ city.name }}
+            </option>
+          </select>
+          <label class="inputLabel">Ciudad</label>
+          <div *ngIf="validateCity" class="divError">
+              <mat-error *ngIf="city!.errors!.required" class="error-text">
+                    {{constantes.TEXT_ERROR_REQUIRED}}
+              </mat-error>
+          </div>
         </div>
         <div class="inputContainer">
           <input
@@ -65,7 +106,11 @@
             formControlName="address"
           />
           <label class="inputLabel">Direccion</label>
-          <div class="inputUnderline"></div>
+          <div *ngIf="validateAddress" class="divError">
+              <mat-error *ngIf="address!.errors!.required">
+                    {{constantes.TEXT_ERROR_REQUIRED}}
+              </mat-error>
+          </div>
         </div>
       </div>
     </div>
@@ -73,7 +118,7 @@
       <h2>Resumen de la compra</h2>
       <p>Cantidad de productos: {{ allCarItems.length }}</p>
       <p>Total: $ {{ getTotal() | currency : " " }}</p>
-      <button class="Btn" (click)="confirmPayment()">
+      <button class="Btn" type="submit">
         Pay
         <svg class="svgIcon" viewBox="0 0 576 512">
           <path

@@ -21,7 +21,8 @@ const getForm = async (req, res) => {
 
 const pay = async (req, res) => {
   try {
-    const { amount, email, documentId, fullName, items } = req.body;
+    const { phone, department, city, address, amount, email, documentId, fullName, items } = req.body;
+    console.log('ENTROOOOO');
 
     if (!amount || !email || !documentId || !fullName || !items) {
       return res.status(400).send("Faltan datos");
@@ -33,13 +34,18 @@ const pay = async (req, res) => {
     const signature = crypto.createHash("md5").update(signatureRaw).digest("hex");
 
     const newOrder = new purchasedItemsSC({
-      items: items,
+      phone,
+      department,
+      city,
+      address,
+      documentId,
+      items,
       state: 'pendiente',
     });
 
     
     await newOrder.save();
-    console.log(newOrder);
+    console.log('newOrder', newOrder._id);
 
     const formHtml = `
       <html>
@@ -49,6 +55,7 @@ const pay = async (req, res) => {
             <input name="accountId"       type="hidden"  value="${accountId}" >
             <input name="description"     type="hidden"  value="Pago en tienda Red Vibes"  >
             <input name="extra1"          type="hidden"  value="${fullName}"   >
+            <input name="extra2"          type="hidden"  value="${newOrder._id}"   >
             <input name="extra3"          type="hidden"  value="${documentId}"   >
             <input name="referenceCode"   type="hidden"  value="${paymentsReference}" >
             <input name="amount"          type="hidden"  value="${amount}"   >
@@ -57,8 +64,8 @@ const pay = async (req, res) => {
             <input name="signature"       type="hidden"  value="${signature}"  >
             <input name="test"            type="hidden"  value="1" >
             <input name="buyerEmail"      type="hidden"  value="${email}" >
+            <input name="confirmationUrl" type="hidden"  value="https://8780-161-18-228-190.ngrok-free.app/r2/confirmation" >
             <input name="responseUrl"     type="hidden"  value="http://localhost:4200/shop/checkout" >
-            <input name="confirmationUrl" type="hidden"  value="https://f719-161-18-228-190.ngrok-free.app/r2/confirmation" >
             input name="Submit"           type="submit"  value="Send" >
           </form>
         </body>
@@ -80,14 +87,14 @@ const responseurl = async (req, res) => {
 async function confirmation(req, res) {
   try {
     const body = req.body;
-    console.log(req.body);
+    console.log('confirmation >>>', req.body);
 
     if(req.body.cc_holder === 'APPROVED' || req.body.cc_holder === 'PENDING') {
 
       let user = await usersSC.findOne({ documentId: body.extra3 });
       console.log('user', user);
       
-      if (!user.length) {
+      if (!user) {
         user = new usersSC({
           fullName: body.extra1,
           documentId: body.extra3,
@@ -95,22 +102,20 @@ async function confirmation(req, res) {
         });
         await user.save();
       }
-
-      console.log('USERID >', user._id);
   
       // Construir transacción con userId
       const transactionData = mapPayUTransaction(body, user._id);
       const transaction = new transactionSC(transactionData);
-      console.log(transaction);
       await transaction.save();
 
       const newOrder = await purchasedItemsSC.findOne({ _id: req.body.extra2 });
-      newOrder.state = 'aprobado';
+
+      if (!newOrder) {
+        return res.status(404).json({ error: 'Order not found' });
+      }
+      newOrder.state = req.body.cc_holder === 'PENDING' ? newOrder.state = 'pendiente' : newOrder.state = 'aprobado';
       await newOrder.save();
-
     }
-
-    // Buscar o crear usuario
 
     res.sendStatus(200);
   } catch (err) {
@@ -149,7 +154,8 @@ function mapPayUTransaction(body, userId) {
     currency: body.currency,
     installments: parseInt(body.installments_number),
     createdAt: new Date(body.transaction_date),
-    userId: userId
+    userId: userId,
+    idBuys: body.extra2
   };
 }
 

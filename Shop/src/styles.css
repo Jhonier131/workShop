@@ -89,3 +89,8 @@ body {
 ::-webkit-scrollbar-thumb:hover {
   background-color: rgba(100, 100, 100, 0.6);
 }
+
+.error-text {
+  color: red;
+  font-size: 12px;
+}

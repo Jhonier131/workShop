@@ -25,7 +25,9 @@ const productsWomens = new Schema(
             type: Array,
             require: false
         },
-        category: Number
+        category: Number,
+        gender: String,
+        stock: Object
     }
 );
 
