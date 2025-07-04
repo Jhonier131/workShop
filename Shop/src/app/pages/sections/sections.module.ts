@@ -15,12 +15,14 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { SectionsComponent } from './containers/sections/sections.component';
 import { WomensComponent } from './components/womens/womens.component';
 import { CheckoutComponent } from './components/checkout/checkout.component';
+import { ItemDetailComponent } from './components/item-detail/item-detail.component';
 
 @NgModule({
   declarations: [
     SectionsComponent,
     WomensComponent,
-    CheckoutComponent
+    CheckoutComponent,
+    ItemDetailComponent
   ],
   imports: [
     CommonModule,

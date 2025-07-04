@@ -1,12 +1,11 @@
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CarService } from 'src/app/core/store/car/car.service';
 import { ShopService } from '../../services/shop.service';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { SubSink } from 'subsink';
-import { SubjectService } from 'src/app/core/services/subjectService.service';
 import { LoaderService } from 'src/app/core/services/loader.service';
 import { constantes } from 'src/app/core/data/constantes';
-import { PaymentsService } from 'src/app/core/services/payments.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-womens',
@@ -17,6 +16,7 @@ export class WomensComponent implements OnInit {
   private subs = new SubSink();
   public allClothes: any = [];
   public allFilters: any = [];
+  public headFilters: any = [];
 
   clotheSelected: any = null;
   sizes: string[] = ['S', 'M', 'L', 'XL'];
@@ -30,16 +30,17 @@ export class WomensComponent implements OnInit {
     public loaderService: LoaderService,
     private carStoreService: CarService,
     private shopServices: ShopService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private router: Router
   ) {
   }  
 
   ngOnInit(): void {
+    this.getFilters();
     this.loaderService.show();
     this.buildFilterForm();
     this.irAlInicio();
     this.getClothes()
-    // setTimeout(() => this.getClothes(), 2000);
   }
 
   buildFilterForm() {
@@ -62,16 +63,20 @@ export class WomensComponent implements OnInit {
         this.filterMode = constantes.FILTER_MEN;
         this.titleModdule = 'Ropa para hombre';
       }
+      this.changeFilter();
     }));
-    this.getFilters();
   }
 
   getFilters() {
     this.subs.add(this.shopServices.getFilters().subscribe(respuesta => {
-      this.allFilters = this.filterMode === constantes.FILTER_WOMEN ?
-        respuesta.payload.filter((item: any) => item.gender !== "M"):
-        respuesta.payload.filter((item: any) => item.gender !== "F");
+      this.allFilters = respuesta.payload;
     }));
+  }
+
+  changeFilter() {
+    this.headFilters = this.filterMode === constantes.FILTER_WOMEN ?
+      this.allFilters.filter((item: any) => item.gender !== "M"):
+      this.allFilters.filter((item: any) => item.gender !== "F");
   }
 
   onChangeCategory(event: any) {
@@ -151,5 +156,9 @@ export class WomensComponent implements OnInit {
       this.allClothes = resp.payload;
       this.loaderService.hide();
     }));
+  }
+
+  openDetail(id: string) {
+    this.router.navigate(['/shop/detail/' + id]);
   }
 }

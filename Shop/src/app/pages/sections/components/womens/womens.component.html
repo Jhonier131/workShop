@@ -1,7 +1,7 @@
 <div class="container-womens">
 
     <div class="navbar-clothes">
-        <li *ngFor="let item of allFilters"><a (click)="filterByCategory(item)">{{item.name}}</a></li>
+        <li *ngFor="let item of headFilters"><a (click)="filterByCategory(item)">{{item.name}}</a></li>
     </div>
 
     <div class="container_filter">
@@ -73,9 +73,14 @@
                         <p *ngIf="item.size.length && item.offSale">${{item.price}}</p>
                         <h2>${{calcPrice(item.price, item.offSale)}}</h2> 
                     </div>
-                    <button type="button" *ngIf="item.size.length" (click)="addCarItem(item)">
-                        Agregar
-                    </button>
+                    <div class="btn-container">
+                        <button class="btn-add" type="button" *ngIf="item.size.length" (click)="addCarItem(item)">
+                            Agregar
+                        </button>
+                        <button class="btn-detail" type="button" [ngStyle]="!item.size.length ? { width: '100%' } : null" (click)="openDetail(item._id)">
+                            <img src="../../../../../assets/icons/eye-fill.svg" alt="Detail">
+                        </button> 
+                    </div>
                 </div>
             </div>
         </div>

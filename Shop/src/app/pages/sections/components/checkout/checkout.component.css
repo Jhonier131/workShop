@@ -154,3 +154,29 @@
 .error-text {
   position: absolute;
 }
+
+@media (max-width: 900px) {
+  .cart-container {
+    width: 90vw;
+  }
+}
+
+@media (max-width: 800px) {
+  .container-checkout {
+    height: auto;
+  }
+  .cart-container {
+    flex-direction: column;
+    margin-top: 8rem;
+
+  }
+  button {
+    margin: auto;
+  }
+}
+
+@media (max-width: 500px) {
+  .checkout-form {
+    grid-template-columns: 1fr;
+  }
+}

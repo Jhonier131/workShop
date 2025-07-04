@@ -32,7 +32,7 @@ export class ShopService {
     return this.http.get<any>(environment.api + 'r1/getFilters');
   }
 
-  public prueba1(): Observable<any> {
-    return this.http.get<any>(environment.api, this.headers);
+  public getItemDetail(id: string): Observable<any> {
+    return this.http.get<any>(environment.api + 'r1/getitem/' + id, this.headers);
   }
 }

@@ -24,41 +24,56 @@ const getAllProducts = async (req, res) => {
   }
 };
 
-// const getAllProductsMen = async (req, res) => {
-//     try {
-//         console.log('getAllProductsMen');
-//         console.log(req.params);
-//         const products = await productsM.find();
-//         response(res, { payload: products})
-//     } catch (error) {
-//         console.log("Error -> ", error.message);
-//         return res.status(500).json(error.message);
-//     }
-// }
+const getItem = async (req, res) => {
+  try {
+    const id = req.params.id;
+
+    // Busca por _id en MongoDB
+    const product = await allProducts.findById(id);
+
+    if (!product) {
+        return res.status(404).json({ message: 'Producto no encontrado' });
+    }
+
+    response(res, { payload: product });
+  } catch (error) {
+    console.log("Error -> ", error.message);
+    return res.status(500).json({ message: error.message });
+  }
+}
 
 const aplyFilters = async (req, res) => {
-    try {
-        const { order, sizes, categories, mode } = req.body;
-        const ProductModel = mode === 'men' ? productsM : productsW;
-        let products;
+  try {
+    const { order, sizes, categories } = req.body;
+    let products;
 
-        if (categories && categories.length) {
-            products = await ProductModel.find({ category: { $in: categories } });
-            if (sizes && sizes.length) products = products.filter(product => product.size.some(size => sizes.includes(size)));
+    if (categories && categories.length) {
+        products = await allProducts.find({ category: { $in: categories } });
+
+        if (sizes && sizes.length) {
+            products = products.filter(product =>
+                product.size.some(size => sizes.includes(size))
+            );
         }
-        else if (sizes && sizes.length) products = await ProductModel.find({ size: { $in: sizes } });
-        else products = await ProductModel.find();
-
-        if (Number(order)) products = products.sort((a, b) => b.price - a.price); // Mayor a menor
-        else products = products.sort((a, b) => a.price - b.price); // Menor a mayor
-
-        console.log('Filter by:', sizes, 'Order by:', Number(order) ? 'Mayor precio' : 'Menor precio', 'Category:', categories, 'Mode:', mode);
-
-        response(res, { payload: products });
-    } catch (error) {
-        console.log("Error -> ", error.message);
-        return res.status(500).json(error.message);
+    } else if (sizes && sizes.length) {
+        products = await allProducts.find({ size: { $in: sizes } });
+    } else {
+        products = await allProducts.find();
     }
+
+    if (Number(order)) {
+        products = products.sort((a, b) => b.price - a.price); // Mayor a menor
+    } else {
+        products = products.sort((a, b) => a.price - b.price); // Menor a mayor
+    }
+
+    console.log('Filter by:', sizes, 'Order by:', Number(order) ? 'Mayor precio' : 'Menor precio', 'Category:', categories);
+
+    response(res, { payload: products });
+  } catch (error) {
+    console.log("Error -> ", error.message);
+    return res.status(500).json(error.message);
+  }
 }
 
 const getFilters = async (req, res) => {
@@ -73,7 +88,7 @@ const getFilters = async (req, res) => {
 
 module.exports = {
     getAllProducts,
-    // getAllProductsMen,
+    getItem,
     aplyFilters,
     getFilters
 }

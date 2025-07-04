@@ -1,4 +1,4 @@
-const api = 'https://redvibes-server.onrender.com/';
+const api = 'https://api.redvibes.store/';
 
 export const environment = {
   production: true,

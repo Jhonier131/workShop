@@ -6,6 +6,6 @@ router
     .get('/allProducts/:gender', products.getAllProducts)
     .get('/getFilters', products.getFilters)
     .post('/aplyFilters', products.aplyFilters)
-    // .get('/allProductsMen', products.getAllProductsMen)
+    .get('/getitem/:id', products.getItem)
 
 module.exports = router;
